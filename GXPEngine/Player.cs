@@ -12,6 +12,8 @@ public class Player : Sprite
 {
     private float turnSpeed = 5f;
     private Vector2 velocity = new Vector2(0, -10);
+    private Vector2 dragVelocity;
+    Boolean isMoving = false;
     public Player() : base("triangle.png")
     {
         SetOrigin(width/2, height/2);
@@ -21,21 +23,45 @@ public class Player : Sprite
 
     void Update()
     {
-        Console.WriteLine("velocity: " + velocity.x + " " + velocity.y);
+        RotateShip();
+        UpdatePosition();
+    }
+
+    void RotateShip()
+    {
+        //Rotate left if A is pressed
         if (Input.GetKey(Key.A))
         {
             velocity.RotateDegrees(-5);
             rotation -= turnSpeed;
         }
+
+        //Rotate right if D is pressed
         if (Input.GetKey(Key.D))
         {
             velocity.RotateDegrees(5);
             rotation += turnSpeed;
         }
-        // Check if the W and S keys are currently pressed.
-        // If so, move the space ship relative to its current orientation:
+    }
+
+    void UpdatePosition()
+    {
         if (Input.GetKey(Key.W))
         {
+            x += velocity.x;
+            y += velocity.y;
+            isMoving = true;
+        }
+
+        if (Input.GetKeyUp(Key.W))
+        {
+            isMoving = false;
+            dragVelocity = velocity;
+        }
+
+        if (isMoving == false && dragVelocity.Length() <= 0.1f)
+        {
+            dragVelocity *= 0.9f;
             x += velocity.x;
             y += velocity.y;
         }

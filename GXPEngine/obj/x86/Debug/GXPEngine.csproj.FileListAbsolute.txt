@@ -1,0 +1,16 @@
+C:\Users\danie\Desktop\GXPEngine2023v2\GXPEngine2023\GXPEngine\bin\Debug\GXPEngine.exe.config
+C:\Users\danie\Desktop\GXPEngine2023v2\GXPEngine2023\GXPEngine\bin\Debug\GXPEngine.exe
+C:\Users\danie\Desktop\GXPEngine2023v2\GXPEngine2023\GXPEngine\bin\Debug\GXPEngine.pdb
+C:\Users\danie\Desktop\GXPEngine2023v2\GXPEngine2023\GXPEngine\obj\x86\Debug\GXPEngine.csproj.AssemblyReference.cache
+C:\Users\danie\Desktop\GXPEngine2023v2\GXPEngine2023\GXPEngine\obj\x86\Debug\GXPEngine.csproj.SuggestedBindingRedirects.cache
+C:\Users\danie\Desktop\GXPEngine2023v2\GXPEngine2023\GXPEngine\obj\x86\Debug\GXPEngine.csproj.CoreCompileInputs.cache
+C:\Users\danie\Desktop\GXPEngine2023v2\GXPEngine2023\GXPEngine\obj\x86\Debug\GXPEngine.exe
+C:\Users\danie\Desktop\GXPEngine2023v2\GXPEngine2023\GXPEngine\obj\x86\Debug\GXPEngine.pdb
+C:\Users\danie\Desktop\SCHOOL\year one\git\Goofy-Goobers\GXPEngine\bin\Debug\GXPEngine.exe.config
+C:\Users\danie\Desktop\SCHOOL\year one\git\Goofy-Goobers\GXPEngine\bin\Debug\GXPEngine.exe
+C:\Users\danie\Desktop\SCHOOL\year one\git\Goofy-Goobers\GXPEngine\bin\Debug\GXPEngine.pdb
+C:\Users\danie\Desktop\SCHOOL\year one\git\Goofy-Goobers\GXPEngine\obj\x86\Debug\GXPEngine.csproj.AssemblyReference.cache
+C:\Users\danie\Desktop\SCHOOL\year one\git\Goofy-Goobers\GXPEngine\obj\x86\Debug\GXPEngine.csproj.SuggestedBindingRedirects.cache
+C:\Users\danie\Desktop\SCHOOL\year one\git\Goofy-Goobers\GXPEngine\obj\x86\Debug\GXPEngine.csproj.CoreCompileInputs.cache
+C:\Users\danie\Desktop\SCHOOL\year one\git\Goofy-Goobers\GXPEngine\obj\x86\Debug\GXPEngine.exe
+C:\Users\danie\Desktop\SCHOOL\year one\git\Goofy-Goobers\GXPEngine\obj\x86\Debug\GXPEngine.pdb
