@@ -19,6 +19,7 @@ public class Player : Sprite
     private float mass = 1.5f;
     private Boolean lostControl = false;
     private float timer = 0;
+    private Vector2 ropeAttachPoint;
 
     public Player() : base("spaceship.png")
     {
@@ -26,6 +27,7 @@ public class Player : Sprite
         scale = 0.075f;
         x = game.width/2;
         y = game.height/2;
+        ropeAttachPoint = new Vector2(game.width / 2, game.height - (height / 2));
     }
     public Vector2 AddForce(Vector2 vec)
     {

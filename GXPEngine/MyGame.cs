@@ -10,8 +10,23 @@ public class MyGame : Game {
 		Player player = new Player();
 		AddChild(player);
 
-		Asteroid asteroid = new Asteroid();
-		AddChild(asteroid);
+		Asteroid asteroid;
+        float asteroidSkin = Utils.Random(0, 3);
+		switch (asteroidSkin)
+		{
+			case 0:
+                asteroid = new Asteroid("asteroid1.png");
+                AddChild(asteroid);
+                break;
+			case 1:
+                asteroid = new Asteroid("asteroid2.png");
+                AddChild(asteroid);
+                break;
+			case 2:
+                asteroid = new Asteroid("asteroid3.png");
+                AddChild(asteroid);
+                break;
+        }
 	}
 
 	// For every game object, Update is called every frame, by the engine:
