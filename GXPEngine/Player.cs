@@ -17,6 +17,8 @@ public class Player : Sprite
     private float angle = 270;
     private Vector2 fResult;
     private float mass = 1.5f;
+    private Boolean lostControl = false;
+    private float timer = 0;
 
     public Player() : base("spaceship.png")
     {
@@ -25,51 +27,54 @@ public class Player : Sprite
         x = game.width/2;
         y = game.height/2;
     }
-
+    public Vector2 AddForce(Vector2 vec)
+    {
+        return fResult += vec;
+    }
     void Update()
     {
         RotateShip();
         UpdateVelocity();
         UpdatePosition();
-    }
 
+        if (lostControl) LoseControl();
+    }
     private void RotateShip()
     {
-        //Rotate left if A is pressed
-        if (Input.GetKey(Key.A))
+        if (!lostControl)
         {
-            angle -= 5;
-            rotation -= turnSpeed;
-        }
-
-        //Rotate right if D is pressed
-        if (Input.GetKey(Key.D))
-        {
-            angle += 5;
-            rotation += turnSpeed;
-        }
-    }
-
-    private void UpdateVelocity()
-    {
-        if (Input.GetKey(Key.W))
-        {
-            //Set our angle:
-            velocity.SetAngleDegrees(angle);
-
-            //Set fResult
-            if (fResult.Length() < maxVelocity)
+            //Rotate left if A is pressed
+            if (Input.GetKey(Key.A))
             {
-                fResult += velocity;
+                angle -= 5;
+                rotation -= turnSpeed;
+            }
+
+            //Rotate right if D is pressed
+            if (Input.GetKey(Key.D))
+            {
+                angle += 5;
+                rotation += turnSpeed;
             }
         }
     }
-
-    public Vector2 AddForce(Vector2 vec)
+    private void UpdateVelocity()
     {
-        return fResult += vec;
-    }
+        if (!lostControl)
+        {
+            if (Input.GetKey(Key.W))
+            {
+                //Set our angle:
+                velocity.SetAngleDegrees(angle);
 
+                //Set fResult
+                if (fResult.Length() < maxVelocity)
+                {
+                    fResult += velocity;
+                }
+            }
+        }
+    }
     private void UpdatePosition()
     {
         //Drag:
@@ -79,7 +84,6 @@ public class Player : Sprite
         x += fResult.x * Time.deltaTime / 16;
         y += fResult.y * Time.deltaTime / 16;
     }
-
     void OnCollision(GameObject other)
     {
         if (other is Asteroid)
@@ -96,6 +100,14 @@ public class Player : Sprite
 
             //Apply bounce to player
             fResult = centerOfMass - 1 * (fResult - centerOfMass);
+
+            lostControl = true;
+            timer = 0;
         }
+    }
+    void LoseControl()
+    {
+        timer += Time.deltaTime;
+        if (timer >= 1000) lostControl = false;
     }
 }
