@@ -189,6 +189,10 @@ namespace GXPEngine.Core
             return x * point.x + y * point.y;
         }
 
+        public Vector2 GetMomentum(float mass)
+        {
+            return this * mass;
+        }
 
         override public string ToString()
         {

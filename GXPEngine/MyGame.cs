@@ -5,8 +5,13 @@ using System.Drawing;                           // System.Drawing contains drawi
 public class MyGame : Game {
 	public MyGame() : base(1920, 1080, false)     // Create a window that's 800x600 and NOT fullscreen
 	{
+		targetFps = 16;
+
 		Player player = new Player();
 		AddChild(player);
+
+		Asteroid asteroid = new Asteroid();
+		AddChild(asteroid);
 	}
 
 	// For every game object, Update is called every frame, by the engine:

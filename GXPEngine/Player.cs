@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Security.Policy;
 using System.Text;
 using System.Threading.Tasks;
@@ -10,16 +11,17 @@ using GXPEngine.Core;
 
 public class Player : Sprite
 {
-    private float maxVelocity = 100f;
+    private float maxVelocity = 15f;
     private float turnSpeed = 5f;
     private Vector2 velocity = new Vector2(0, 1f);
     private float angle = 270;
-    Vector2 fResult;
+    private Vector2 fResult;
+    private float mass = 1.5f;
 
-
-    public Player() : base("triangle.png")
+    public Player() : base("spaceship.png")
     {
-        SetOrigin(width/2, height/2);
+        SetOrigin(width / 2, height / 2);
+        scale = 0.075f;
         x = game.width/2;
         y = game.height/2;
     }
@@ -31,7 +33,7 @@ public class Player : Sprite
         UpdatePosition();
     }
 
-    void RotateShip()
+    private void RotateShip()
     {
         //Rotate left if A is pressed
         if (Input.GetKey(Key.A))
@@ -48,7 +50,7 @@ public class Player : Sprite
         }
     }
 
-    void UpdateVelocity()
+    private void UpdateVelocity()
     {
         if (Input.GetKey(Key.W))
         {
@@ -56,17 +58,44 @@ public class Player : Sprite
             velocity.SetAngleDegrees(angle);
 
             //Set fResult
-            if (fResult.Length() < maxVelocity) fResult += velocity;
+            if (fResult.Length() < maxVelocity)
+            {
+                fResult += velocity;
+            }
         }
     }
 
-    void UpdatePosition()
+    public Vector2 AddForce(Vector2 vec)
+    {
+        return fResult += vec;
+    }
+
+    private void UpdatePosition()
     {
         //Drag:
         fResult *= .95f;
 
         //Update our position:
-        x += fResult.x;
-        y += fResult.y;
+        x += fResult.x * Time.deltaTime / 16;
+        y += fResult.y * Time.deltaTime / 16;
+    }
+
+    void OnCollision(GameObject other)
+    {
+        if (other is Asteroid)
+        {
+            Asteroid asteroid = (Asteroid)other;
+
+            //Calculate CoM:
+            Vector2 asteroidMomentum = asteroid.velocity.GetMomentum(asteroid.mass);
+            Vector2 playerMomentum = velocity.GetMomentum(mass);
+            Vector2 centerOfMass = (asteroidMomentum + playerMomentum) / (asteroid.mass + mass);
+
+            //Apply bounce to asteroid
+            asteroid.velocity = centerOfMass - 1 * (asteroid.velocity - centerOfMass);
+
+            //Apply bounce to player
+            fResult = centerOfMass - 1 * (fResult - centerOfMass);
+        }
     }
 }
