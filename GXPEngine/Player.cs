@@ -19,7 +19,7 @@ public class Player : Sprite
     private float mass = 1.5f;
     private Boolean lostControl = false;
     private float timer = 0;
-    private Vector2 ropeAttachPoint;
+    public Vector2 ropeAttachPoint;
 
     public Player() : base("spaceship.png")
     {
@@ -27,7 +27,9 @@ public class Player : Sprite
         scale = 0.075f;
         x = game.width/2;
         y = game.height/2;
-        ropeAttachPoint = new Vector2(game.width / 2, game.height - (height / 2));
+
+        // Rope attach point:
+        ropeAttachPoint = new Vector2(x, y + (height / 2));
     }
     public Vector2 AddForce(Vector2 vec)
     {
@@ -50,6 +52,7 @@ public class Player : Sprite
             {
                 angle -= 5;
                 rotation -= turnSpeed;
+                ropeAttachPoint.RotateAroundDegrees(new Vector2(x, y), -5);
             }
 
             //Rotate right if D is pressed
@@ -57,6 +60,7 @@ public class Player : Sprite
             {
                 angle += 5;
                 rotation += turnSpeed;
+                ropeAttachPoint.RotateAroundDegrees(new Vector2(x, y), 5);
             }
         }
     }
@@ -83,8 +87,12 @@ public class Player : Sprite
         fResult *= .95f;
 
         //Update our position:
-        x += fResult.x * Time.deltaTime / 16;
-        y += fResult.y * Time.deltaTime / 16;
+        x += fResult.x * Time.deltaTime / 16f;
+        y += fResult.y * Time.deltaTime / 16f;
+
+        // Update rope position:
+        ropeAttachPoint.x += fResult.x * Time.deltaTime / 16f;
+        ropeAttachPoint.y += fResult.y * Time.deltaTime / 16f;
     }
     void OnCollision(GameObject other)
     {

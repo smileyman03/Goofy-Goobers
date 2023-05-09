@@ -3,12 +3,27 @@ using GXPEngine;                                // GXPEngine contains the engine
 using System.Drawing;                           // System.Drawing contains drawing tools such as Color definitions
 
 public class MyGame : Game {
+	public Pivot screen;
+	public Pivot layer1 = new Pivot();
+	public Pivot layer2 = new Pivot();
+	public Pivot layer3 = new Pivot();
 	public MyGame() : base(1920, 1080, false)     // Create a window that's 800x600 and NOT fullscreen
 	{
 		targetFps = 16;
 
+		// Add Layers:
+		screen = new Pivot();
+		screen.x = 0;
+		AddChild(screen);
+		screen.AddChild(layer1);
+		screen.AddChild(layer2);
+		screen.AddChild(layer3);
+
 		Player player = new Player();
-		AddChild(player);
+		layer2.AddChild(player);
+
+		Rope rope = new Rope(25, player);
+		layer1.AddChild(rope);
 
 		Asteroid asteroid;
         float asteroidSkin = Utils.Random(0, 3);
