@@ -10,10 +10,13 @@ using GXPEngine.Core;
 
 public class Player : Sprite
 {
+    private float maxVelocity = 100f;
     private float turnSpeed = 5f;
-    private Vector2 velocity = new Vector2(0, -10);
-    private Vector2 dragVelocity;
-    Boolean isMoving = false;
+    private Vector2 velocity = new Vector2(0, 1f);
+    private float angle = 270;
+    Vector2 fResult;
+
+
     public Player() : base("triangle.png")
     {
         SetOrigin(width/2, height/2);
@@ -24,6 +27,7 @@ public class Player : Sprite
     void Update()
     {
         RotateShip();
+        UpdateVelocity();
         UpdatePosition();
     }
 
@@ -32,38 +36,37 @@ public class Player : Sprite
         //Rotate left if A is pressed
         if (Input.GetKey(Key.A))
         {
-            velocity.RotateDegrees(-5);
+            angle -= 5;
             rotation -= turnSpeed;
         }
 
         //Rotate right if D is pressed
         if (Input.GetKey(Key.D))
         {
-            velocity.RotateDegrees(5);
+            angle += 5;
             rotation += turnSpeed;
+        }
+    }
+
+    void UpdateVelocity()
+    {
+        if (Input.GetKey(Key.W))
+        {
+            //Set our angle:
+            velocity.SetAngleDegrees(angle);
+
+            //Set fResult
+            if (fResult.Length() < maxVelocity) fResult += velocity;
         }
     }
 
     void UpdatePosition()
     {
-        if (Input.GetKey(Key.W))
-        {
-            x += velocity.x;
-            y += velocity.y;
-            isMoving = true;
-        }
+        //Drag:
+        fResult *= .95f;
 
-        if (Input.GetKeyUp(Key.W))
-        {
-            isMoving = false;
-            dragVelocity = velocity;
-        }
-
-        if (isMoving == false && dragVelocity.Length() <= 0.1f)
-        {
-            dragVelocity *= 0.9f;
-            x += velocity.x;
-            y += velocity.y;
-        }
+        //Update our position:
+        x += fResult.x;
+        y += fResult.y;
     }
 }
