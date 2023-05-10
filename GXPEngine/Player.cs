@@ -9,22 +9,24 @@ using System.Threading.Tasks;
 using GXPEngine;
 using GXPEngine.Core;
 
-public class Player : Sprite
+public class Player : AnimationSprite
 {
     private float maxVelocity = 15f;
     private float turnSpeed = 5f;
     private Vector2 velocity = new Vector2(0, 1f);
     private float angle = 270;
     private Vector2 fResult;
-    private float mass = 1.5f;
+    private float mass = 1.25f;
     private Boolean lostControl = false;
     private float timer = 0;
+    private float animationTimer = 0;
     public Vector2 ropeAttachPoint;
-
-    public Player() : base("spaceship.png")
+    private float fuelCount = 20000f;
+    private float fuelConsumptionRate = 1f;
+    public Player() : base("spaceship.png", 4, 1)
     {
         SetOrigin(width / 2, height / 2);
-        scale = 0.075f;
+        scale = 0.5f;
         x = game.width/2;
         y = game.height/2;
 
@@ -40,15 +42,19 @@ public class Player : Sprite
         RotateShip();
         UpdateVelocity();
         UpdatePosition();
+        AnimateShip();
+        FuelConsumption();
 
         if (lostControl) LoseControl();
+
+        Console.WriteLine("position: " + y);
     }
     private void RotateShip()
     {
         if (!lostControl)
         {
             //Rotate left if A is pressed
-            if (Input.GetKey(Key.A))
+            if (Input.GetKey(Key.A) && fuelCount > 0)
             {
                 angle -= 5;
                 rotation -= turnSpeed;
@@ -56,7 +62,7 @@ public class Player : Sprite
             }
 
             //Rotate right if D is pressed
-            if (Input.GetKey(Key.D))
+            if (Input.GetKey(Key.D) && fuelCount > 0)
             {
                 angle += 5;
                 rotation += turnSpeed;
@@ -68,23 +74,34 @@ public class Player : Sprite
     {
         if (!lostControl)
         {
-            if (Input.GetKey(Key.W))
-            {
-                //Set our angle:
-                velocity.SetAngleDegrees(angle);
+            //Set our angle:
+            velocity.SetAngleDegrees(angle);
 
+            if (Input.GetKey(Key.W) && fuelCount > 0)
+            {
                 //Set fResult
                 if (fResult.Length() < maxVelocity)
                 {
                     fResult += velocity;
                 }
             }
+
+            if (Input.GetKey(Key.SPACE) && fuelCount > 0)
+            {
+                fResult += velocity * 2f;
+                fuelConsumptionRate = 2.5f;
+            }
+        }
+
+        if (!Input.GetKey(Key.SPACE) || lostControl)
+        {
+            fuelConsumptionRate = 1f;
         }
     }
     private void UpdatePosition()
     {
         //Drag:
-        fResult *= .95f;
+        fResult *= .975f;
 
         //Update our position:
         x += fResult.x * Time.deltaTime / 16f;
@@ -102,7 +119,7 @@ public class Player : Sprite
 
             //Calculate CoM:
             Vector2 asteroidMomentum = asteroid.velocity.GetMomentum(asteroid.mass);
-            Vector2 playerMomentum = velocity.GetMomentum(mass);
+            Vector2 playerMomentum = fResult.GetMomentum(mass);
             Vector2 centerOfMass = (asteroidMomentum + playerMomentum) / (asteroid.mass + mass);
 
             //Apply bounce to asteroid
@@ -119,5 +136,25 @@ public class Player : Sprite
     {
         timer += Time.deltaTime;
         if (timer >= 1000) lostControl = false;
+    }
+    void AnimateShip()
+    {
+        if ((Input.GetKey(Key.W) || Input.GetKey(Key.A) || Input.GetKey(Key.D)) || Input.GetKey(Key.SPACE) && fuelCount > 0)
+        {
+            animationTimer += Time.deltaTime;
+            if (animationTimer >= 200)
+            {
+                NextFrame();
+                animationTimer = 0;
+            }
+        }
+    }
+    void FuelConsumption()
+    {
+        if ((Input.GetKey(Key.W) || Input.GetKey(Key.A) || Input.GetKey(Key.D)) || Input.GetKey(Key.SPACE) && fuelCount > 0 && !lostControl)
+        {
+            fuelCount -= Time.deltaTime * fuelConsumptionRate;
+            Console.WriteLine("Fuel: " + fuelCount);
+        }
     }
 }
