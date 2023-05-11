@@ -52,7 +52,7 @@ public class Rope : GameObject
             segmentList[0] = firstSegment;
             Vector2 Velocity = firstSegment - oldsegmentList[i];
             oldsegmentList[i] = firstSegment;
-            firstSegment += Velocity / 1.001f;
+            firstSegment += Velocity / 1.04f;
             segmentList[i] = firstSegment;
         }
 

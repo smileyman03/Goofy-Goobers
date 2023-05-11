@@ -25,6 +25,11 @@ public class MyGame : Game {
 		Rope rope = new Rope(25, player);
 		layer1.AddChild(rope);
 
+		planet mars = new planet("spurral.png", 1, 200, 200, layer1);
+		layer2.AddChild(mars);
+
+
+		//temporarily -> will be put in a class 
 		Asteroid asteroid;
         float asteroidSkin = Utils.Random(0, 3);
 		switch (asteroidSkin)

@@ -84,7 +84,7 @@ public class Player : Sprite
     private void UpdatePosition()
     {
         //Drag:
-        fResult *= .95f;
+        fResult *= .985f;
 
         //Update our position:
         x += fResult.x * Time.deltaTime / 16f;
