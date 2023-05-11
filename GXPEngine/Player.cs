@@ -12,8 +12,8 @@ using GXPEngine.Core;
 public class Player : AnimationSprite
 {
     private float maxVelocity = 15f;
-    private float turnSpeed = 5f;
-    private Vector2 velocity = new Vector2(0, 1f);
+    private float turnSpeed = 2.5f;
+    private Vector2 velocity = new Vector2(0, 0.75f);
     private float angle = 270;
     private Vector2 fResult;
     private float mass = 1.25f;
@@ -26,7 +26,7 @@ public class Player : AnimationSprite
     public Player() : base("spaceship.png", 4, 1)
     {
         SetOrigin(width / 2, height / 2);
-        scale = 0.5f;
+        scale = 0.1f;
         x = game.width/2;
         y = game.height/2;
 
@@ -46,8 +46,6 @@ public class Player : AnimationSprite
         FuelConsumption();
 
         if (lostControl) LoseControl();
-
-        Console.WriteLine("position: " + y);
     }
     private void RotateShip()
     {
@@ -56,17 +54,17 @@ public class Player : AnimationSprite
             //Rotate left if A is pressed
             if (Input.GetKey(Key.A) && fuelCount > 0)
             {
-                angle -= 5;
+                angle -= 2.5f;
                 rotation -= turnSpeed;
-                ropeAttachPoint.RotateAroundDegrees(new Vector2(x, y), -5);
+                ropeAttachPoint.RotateAroundDegrees(new Vector2(x, y), -2.5f);
             }
 
             //Rotate right if D is pressed
             if (Input.GetKey(Key.D) && fuelCount > 0)
             {
-                angle += 5;
+                angle += 2.5f;
                 rotation += turnSpeed;
-                ropeAttachPoint.RotateAroundDegrees(new Vector2(x, y), 5);
+                ropeAttachPoint.RotateAroundDegrees(new Vector2(x, y), 2.5f);
             }
         }
     }
@@ -88,7 +86,7 @@ public class Player : AnimationSprite
 
             if (Input.GetKey(Key.SPACE) && fuelCount > 0)
             {
-                fResult += velocity * 2f;
+                fResult += velocity * 1.5f;
                 fuelConsumptionRate = 2.5f;
             }
         }
@@ -139,7 +137,7 @@ public class Player : AnimationSprite
     }
     void AnimateShip()
     {
-        if ((Input.GetKey(Key.W) || Input.GetKey(Key.A) || Input.GetKey(Key.D)) || Input.GetKey(Key.SPACE) && fuelCount > 0)
+        if ((Input.GetKey(Key.W) || Input.GetKey(Key.A) || Input.GetKey(Key.D) || Input.GetKey(Key.SPACE)) && fuelCount > 0)
         {
             animationTimer += Time.deltaTime;
             if (animationTimer >= 200)
@@ -151,7 +149,7 @@ public class Player : AnimationSprite
     }
     void FuelConsumption()
     {
-        if ((Input.GetKey(Key.W) || Input.GetKey(Key.A) || Input.GetKey(Key.D)) || Input.GetKey(Key.SPACE) && fuelCount > 0 && !lostControl)
+        if ((Input.GetKey(Key.W) || Input.GetKey(Key.A) || Input.GetKey(Key.D) || Input.GetKey(Key.SPACE)) && fuelCount > 0 && !lostControl)
         {
             fuelCount -= Time.deltaTime * fuelConsumptionRate;
             Console.WriteLine("Fuel: " + fuelCount);

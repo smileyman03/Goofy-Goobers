@@ -4,9 +4,9 @@ using System.Drawing;                           // System.Drawing contains drawi
 using System.Collections.Generic;
 public class MyGame : Game {
 	public Pivot screen;
-	public Pivot layer1 = new Pivot();
-	public Pivot layer2 = new Pivot();
-	public Pivot layer3 = new Pivot();
+	public Pivot background = new Pivot();
+	public Pivot ropeLayer = new Pivot();
+	public Pivot collisionStuff = new Pivot();
 	public MyGame() : base(1920, 1080, false)     // Create a window that's 800x600 and NOT fullscreen
 	{
 		targetFps = 16;
@@ -15,17 +15,17 @@ public class MyGame : Game {
 		screen = new Pivot();
 		screen.x = 0;
 		AddChild(screen);
-		screen.AddChild(layer1);
-		screen.AddChild(layer2);
-		screen.AddChild(layer3);
+		screen.AddChild(background);
+		screen.AddChild(ropeLayer);
+		screen.AddChild(collisionStuff);
 
 		// Add Player:
 		Player player = new Player();
-		layer3.AddChild(player);
+		collisionStuff.AddChild(player);
 
 		// Add Rope that consists of 25 segments:
 		Rope rope = new Rope(25, player);
-		layer2.AddChild(rope);
+		ropeLayer.AddChild(rope);
 
 		// Add asteroid that's 1 of 3 random skins:
 		Asteroid asteroid;
@@ -34,21 +34,21 @@ public class MyGame : Game {
 		{
 			case 0:
                 asteroid = new Asteroid("asteroid1.png");
-                layer1.AddChild(asteroid);
+                collisionStuff.AddChild(asteroid);
                 break;
 			case 1:
                 asteroid = new Asteroid("asteroid2.png");
-                layer1.AddChild(asteroid);
+                collisionStuff.AddChild(asteroid);
                 break;
 			case 2:
                 asteroid = new Asteroid("asteroid3.png");
-                layer1.AddChild(asteroid);
+                collisionStuff.AddChild(asteroid);
                 break;
         }
 
 		// Add enemy:
 		Enemy enemy = new Enemy();
-		layer3.AddChild(enemy);
+        collisionStuff.AddChild(enemy);
 	}
 	static void Main()                          // Main() is the first method that's called when the program is run
 	{
