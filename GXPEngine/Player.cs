@@ -16,12 +16,12 @@ public class Player : AnimationSprite
     private Vector2 velocity = new Vector2(0, 0.75f);
     private float angle = 270;
     private Vector2 fResult;
-    private float mass = 1.25f;
+    private float mass = 0.75f;
     private Boolean lostControl = false;
     private float timer = 0;
     private float animationTimer = 0;
     public Vector2 ropeAttachPoint;
-    private float fuelCount = 20000f;
+    private float fuelCount = 30000f;
     private float fuelConsumptionRate = 1f;
     public Player() : base("spaceship.png", 4, 1)
     {

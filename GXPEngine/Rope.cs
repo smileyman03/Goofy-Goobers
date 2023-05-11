@@ -19,6 +19,7 @@ public class Rope : GameObject
     private List<Vector2> oldSegmentList = new List<Vector2>();
     public List<Vector2> ropePositions = new List<Vector2>();
     EasyDraw drawingSpace;
+    public Vector2 additionalVelocity = new Vector2(0, 0);
     public Rope(int Length, Player pPlayer) : base(false)
     {
         player = pPlayer;
@@ -47,13 +48,14 @@ public class Rope : GameObject
 
     void LinePhysics()
     {
+        additionalVelocity *= 0.9f;
         for (int i = 0; i < ropeLength; i++)
         {
             Vector2 firstSegment = segmentList[i];
             segmentList[0] = firstSegment;
             Vector2 Velocity = firstSegment - oldSegmentList[i];
             oldSegmentList[i] = firstSegment;
-            firstSegment += Velocity / 1.025f;
+            firstSegment += Velocity / 1.025f - additionalVelocity;
             segmentList[i] = firstSegment;
         }
 
