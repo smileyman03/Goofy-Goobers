@@ -21,6 +21,7 @@ public class MyGame : Game {
 		screen.AddChild(pickupLayer);
 		screen.AddChild(ropeLayer);
 		screen.AddChild(collisionStuff);
+		screen.AddChild(gravityLayer);
 
 		// Add Pickups:
 		BoostPickup boostPickup = new BoostPickup(600, 200);
@@ -48,7 +49,7 @@ public class MyGame : Game {
 		collisionStuff.AddChild(enemy);
 
 		// Add mars
-		planet mars = new planet("spurral.png", 1, 200, 200, gravityLayer);
+		planet mars = new planet("spurral.png", 1, 600, 600, gravityLayer, -1);
 		collisionStuff.AddChild(mars);
 
 

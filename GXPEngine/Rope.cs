@@ -47,13 +47,14 @@ public class Rope : GameObject
 
     void LinePhysics()
     {
+        additionalVelocity /= 1.04f;
         for (int i = 0; i < ropeLength; i++)
         {
             Vector2 firstSegment = segmentList[i];
             segmentList[0] = firstSegment;
             Vector2 Velocity = firstSegment - oldsegmentList[i];
             oldsegmentList[i] = firstSegment;
-            firstSegment += Velocity / 1.04f + additionalVelocity / 1.04f;
+            firstSegment += Velocity / 1.04f + additionalVelocity;
             segmentList[i] = firstSegment;
         }
 

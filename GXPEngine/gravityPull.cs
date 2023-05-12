@@ -12,12 +12,13 @@ using System.Collections;
 public class Gravity : Sprite
 {
     
-    private float pullStrength;
-    public Gravity(float size, int sX, int sY) : base("gravity.png", true)
+    public float pullStrength;
+    public Gravity(float size, int sX, int sY, int strength) : base("gravity.png", true)
     {
         SetOrigin(width / 2, height / 2);
         x = sX;
         y = sY;
+        pullStrength = strength;
         SetScaleXY(size);
         
 

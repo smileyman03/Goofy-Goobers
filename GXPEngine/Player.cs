@@ -137,6 +137,63 @@ public class Player : AnimationSprite
             Console.WriteLine(health);
         }
 
+        if (other is planet)
+        {
+            
+            planet planet = (planet)other;
+            Vector2 main;
+            Vector2 pos;
+            float angleX;
+            main.x = x;
+            main.y = y;
+
+            pos.x = planet.x;
+            pos.y = planet.y;
+
+            pos = pos - main;
+            
+            if(pos.Length() < planet.width / 2 + width / 2)
+            {
+                main = -fResult;
+                if (pos.GetAngleDegrees() > main.GetAngleDegrees())
+                {
+                    angleX = pos.GetAngleDegrees() - main.GetAngleDegrees();
+                    main.SetAngleDegrees(main.GetAngleDegrees() + angleX * 2);
+                }
+                else
+                {
+                    angleX = pos.GetAngleDegrees() - pos.GetAngleDegrees();
+                    main.SetAngleDegrees(main.GetAngleDegrees() - angleX * 2);
+                }
+
+                fResult = main;
+            }
+
+            
+        }
+        if (other is Gravity)
+        {
+            Gravity pull = (Gravity)other;
+            Vector2 center;
+            Vector2 ship;
+
+            ship.x = x;
+            ship.y = y;
+
+            center.x = pull.x;
+            center.y = pull.y;
+
+            
+
+            if (ship.DistanceTo(center) < pull.width / 2 + width / 2)
+            {
+                Console.WriteLine("collide");
+                fResult += (center - ship).Normalized() * 0.1f *pull.pullStrength;
+              
+            }
+            
+        }
+
         // pickups:
         if (other is BoostPickup)
         {
