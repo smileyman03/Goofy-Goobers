@@ -28,6 +28,7 @@ public class Player : AnimationSprite
     private float shieldTimer = 0;
     private Boolean hasShield = false;
     private float animationTimer = 0;
+    ShipShield shield;
     public Player() : base("spaceship.png", 4, 1)
     {
         SetOrigin(width / 2, height / 2);
@@ -127,7 +128,11 @@ public class Player : AnimationSprite
 
             //damage:
             if (!hasShield) health -= 25;
-            else hasShield = false;
+            else
+            {
+                hasShield = false;
+                shield.LateDestroy();
+            }
 
             Console.WriteLine(health);
         }
@@ -156,6 +161,9 @@ public class Player : AnimationSprite
         {
             hasShield = true;
             shieldTimer = 5000;
+
+            shield = new ShipShield();
+            LateAddChild(shield);
 
             //Delete pickup:
             other.LateDestroy();
@@ -192,19 +200,20 @@ public class Player : AnimationSprite
     void Timers()
     {
         //Shield timer:
-        if (shieldTimer > 0)
+        if (shieldTimer != 0)
         {
             shieldTimer -= Time.deltaTime;
         }
 
         else
         {
+            if (hasShield) shield.LateDestroy();
             hasShield = false;
             shieldTimer = 0;
         }
 
         //Boost timer:
-        if (boostTimer > 0)
+        if (boostTimer != 0)
         {
             boostTimer -= Time.deltaTime;
         }

@@ -92,6 +92,7 @@
     <Compile Include="RepairPickup.cs" />
     <Compile Include="Rope.cs" />
     <Compile Include="ShieldPickup.cs" />
+    <Compile Include="ShipShield.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
