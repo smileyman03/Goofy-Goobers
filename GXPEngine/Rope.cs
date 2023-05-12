@@ -15,7 +15,7 @@ public class Rope : GameObject
     private float lineSegmentSize = 0.25f;
     private Vector2 startPos;
     Player player;
-    List<Vector2> segmentList = new List<Vector2>();
+    public List<Vector2> segmentList = new List<Vector2>();
     List<Vector2> oldsegmentList = new List<Vector2>();
     EasyDraw drawingSpace;
     public Rope(float Length, Player pPlayer) : base(false)
@@ -26,25 +26,25 @@ public class Rope : GameObject
 
         startPos.x = player.ropeAttachPoint.x;
         startPos.y = player.ropeAttachPoint.y;
-        
+
         //creates all segments of the line
         for (int i = 0; i < ropeLength; i++)
         {
             segmentList.Add(startPos);
             oldsegmentList.Add(startPos);
             startPos.y -= lineSegmentSize;
-            Console.WriteLine(startPos);
+            //Console.WriteLine(startPos);
         }
     }
 
     void Update()
     {
-        linePhysics();
-        contraints();
-        drawLine();
+        LinePhysics();
+        Constraints();
+        DrawLine();
     }
 
-    void linePhysics()
+    void LinePhysics()
     {
         for (int i = 0; i < ropeLength; i++)
         {
@@ -58,15 +58,15 @@ public class Rope : GameObject
 
     }
 
-    void contraints()
+    void Constraints()
     {
         for (int i = 0; i < 50; i++)
         {
-            contraining();
+            Constraining();
         }
     }
 
-    void contraining()
+    void Constraining()
     {
         Vector2 firstSegment = segmentList[0];
         firstSegment.x = player.ropeAttachPoint.x;
@@ -104,19 +104,18 @@ public class Rope : GameObject
         }
     }
 
-    public void drawLine()
+    public void DrawLine()
     {
 
         Vector2 oldVector;
         Vector2 newVector;
         for (int i = 1; i < ropeLength; i++)
         {
-
-            Console.WriteLine(segmentList[0]);
+            //Console.WriteLine(segmentList[0]);
             oldVector = segmentList[i - 1];
             newVector = segmentList[i];
+            Gizmos.SetColor(0.75f, 0, 1);
             Gizmos.DrawLine(oldVector.x, oldVector.y, newVector.x, newVector.y);
-
         }
     }
 }
