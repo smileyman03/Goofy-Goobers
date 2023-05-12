@@ -12,15 +12,14 @@ using GXPEngine.Core;
 public class Player : AnimationSprite
 {
     private float maxVelocity = 15f;
-    private float turnSpeed = 2.5f;
-    private Vector2 velocity = new Vector2(0, 0.75f);
+    private float turnSpeed = 5f;
+    private Vector2 velocity = new Vector2(0, 1f);
     private float angle = 270;
     private Vector2 fResult;
-    private float mass = 0.75f;
+    private float mass = 1.5f;
     private Boolean lostControl = false;
     private Boolean isBoosting = false;
     private float timer = 0;
-    private float animationTimer = 0;
     public Vector2 ropeAttachPoint;
     private float fuelCount = 30000f;
     private float fuelConsumptionRate = 1f;
@@ -80,8 +79,6 @@ public class Player : AnimationSprite
             //Set our angle:
             velocity.SetAngleDegrees(angle);
 
-            if (Input.GetKey(Key.W) && fuelCount > 0)
-            {
                 //Set fResult
                 if (fResult.Length() < maxVelocity)
                 {

@@ -1,7 +1,7 @@
 using System;                                   // System contains a lot of default C# libraries 
 using GXPEngine;                                // GXPEngine contains the engine
 using System.Drawing;                           // System.Drawing contains drawing tools such as Color definitions
-using System.Collections.Generic;
+
 public class MyGame : Game {
 	public Pivot screen;
 	public Pivot background = new Pivot();
@@ -38,38 +38,40 @@ public class MyGame : Game {
         Player player = new Player();
         collisionStuff.AddChild(player);
 
-        // Add Rope that consists of 25 segments:
-        Rope rope = new Rope(25, player);
-        ropeLayer.AddChild(rope);
+		Rope rope = new Rope(25, player);
+		layer1.AddChild(rope);
 
-        // Add asteroid that's 1 of 3 random skins:
-        Asteroid asteroid;
+		planet mars = new planet("spurral.png", 1, 200, 200, layer1);
+		layer2.AddChild(mars);
+
+
+		//temporarily -> will be put in a class 
+		Asteroid asteroid;
         float asteroidSkin = Utils.Random(0, 3);
 		switch (asteroidSkin)
 		{
 			case 0:
                 asteroid = new Asteroid("asteroid1.png");
-                collisionStuff.AddChild(asteroid);
+                AddChild(asteroid);
                 break;
 			case 1:
                 asteroid = new Asteroid("asteroid2.png");
-                collisionStuff.AddChild(asteroid);
+                AddChild(asteroid);
                 break;
 			case 2:
                 asteroid = new Asteroid("asteroid3.png");
-                collisionStuff.AddChild(asteroid);
+                AddChild(asteroid);
                 break;
         }
-
-		// Add enemy:
-		Enemy enemy = new Enemy();
-        collisionStuff.AddChild(enemy);
 	}
+
+	// For every game object, Update is called every frame, by the engine:
+	void Update() {
+		// Empty
+	}
+
 	static void Main()                          // Main() is the first method that's called when the program is run
 	{
 		new MyGame().Start();                   // Create a "MyGame" and start it
-	}
-	void Update()
-	{
 	}
 }
