@@ -28,6 +28,7 @@ public class Gravity : Sprite
         rotation -= 0.07f;
     }
 
+    /*
     public Vector2 vecPull(Vector2 pos)
     {
         Vector2 pull;
@@ -35,8 +36,9 @@ public class Gravity : Sprite
 
 
 
-        return pull
+        return pull;
     }
+    */
 
     void OnCollision(GameObject Collider)
     {

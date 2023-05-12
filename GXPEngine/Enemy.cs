@@ -84,7 +84,7 @@ public class Enemy : AnimationSprite
             if (child is Rope)
             {
                 Rope rope = (Rope)child;
-                if (ropesClimbed > rope.ropePositions.Count)
+                if (ropesClimbed > rope.segmentList.Count)
                 {
                     //Do Game over;
                 }
@@ -103,10 +103,10 @@ public class Enemy : AnimationSprite
             {
                 // Set rope segment to which enemy needs to be attached:
                 Rope rope = (Rope)child;
-                attachedToRopeSegment = rope.ropePositions.Count - 1 - ropesClimbed;
+                attachedToRopeSegment = rope.segmentList.Count - 1 - ropesClimbed;
 
                 // Set XY to rope segment XY:
-                for (int i = rope.ropePositions.Count - 1; i >= 0; i--)
+                for (int i = rope.segmentList.Count - 1; i >= 0; i--)
                 {
                     if (i == attachedToRopeSegment)
                     {
@@ -114,7 +114,7 @@ public class Enemy : AnimationSprite
                         oldPosition = new Vector2(x, y);
 
                         // Change position:
-                        Vector2 position = rope.ropePositions[i];
+                        Vector2 position = rope.segmentList[i];
                         x = position.x;
                         y = position.y;
 

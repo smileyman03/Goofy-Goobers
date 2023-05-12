@@ -12,8 +12,8 @@ using GXPEngine.Core;
 public class Player : AnimationSprite
 {
     private float maxVelocity = 15f;
-    private float turnSpeed = 5f;
-    private Vector2 velocity = new Vector2(0, 1f);
+    private float turnSpeed = 2.5f;
+    private Vector2 velocity = new Vector2(0, 0.5f);
     private float angle = 270;
     private Vector2 fResult;
     private float mass = 1.5f;
@@ -27,6 +27,7 @@ public class Player : AnimationSprite
     private float health = 100;
     private float shieldTimer = 0;
     private Boolean hasShield = false;
+    private float animationTimer = 0;
     public Player() : base("spaceship.png", 4, 1)
     {
         SetOrigin(width / 2, height / 2);
@@ -74,21 +75,20 @@ public class Player : AnimationSprite
     }
     private void UpdateVelocity()
     {
-        if (!lostControl)
+        if (!lostControl && Input.GetKey(Key.W))
         {
             //Set our angle:
             velocity.SetAngleDegrees(angle);
 
-                //Set fResult
-                if (fResult.Length() < maxVelocity)
-                {
-                    fResult += velocity;
-                }
+            //Set fResult
+            if (fResult.Length() < maxVelocity)
+            {
+                fResult += velocity;
+            }
 
-                if (isBoosting)
-                {
-                    fResult += velocity;
-                }
+            if (isBoosting)
+            {
+                fResult += velocity;
             }
         }
     }

@@ -18,6 +18,7 @@ public class Rope : GameObject
     public List<Vector2> segmentList = new List<Vector2>();
     List<Vector2> oldsegmentList = new List<Vector2>();
     EasyDraw drawingSpace;
+    public Vector2 additionalVelocity;
     public Rope(float Length, Player pPlayer) : base(false)
     {
         player = pPlayer;
@@ -52,7 +53,7 @@ public class Rope : GameObject
             segmentList[0] = firstSegment;
             Vector2 Velocity = firstSegment - oldsegmentList[i];
             oldsegmentList[i] = firstSegment;
-            firstSegment += Velocity / 1.04f;
+            firstSegment += Velocity / 1.04f + additionalVelocity / 1.04f;
             segmentList[i] = firstSegment;
         }
 
@@ -106,7 +107,6 @@ public class Rope : GameObject
 
     public void DrawLine()
     {
-
         Vector2 oldVector;
         Vector2 newVector;
         for (int i = 1; i < ropeLength; i++)

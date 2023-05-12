@@ -7,6 +7,7 @@ public class MyGame : Game {
 	public Pivot background = new Pivot();
 	public Pivot pickupLayer = new Pivot();
 	public Pivot ropeLayer = new Pivot();
+	public Pivot gravityLayer = new Pivot();
 	public Pivot collisionStuff = new Pivot();
 	public MyGame() : base(1920, 1080, false)     // Create a window that's 800x600 and NOT fullscreen
 	{
@@ -38,11 +39,17 @@ public class MyGame : Game {
         Player player = new Player();
         collisionStuff.AddChild(player);
 
+		// Add Rope
 		Rope rope = new Rope(25, player);
-		layer1.AddChild(rope);
+		ropeLayer.AddChild(rope);
 
-		planet mars = new planet("spurral.png", 1, 200, 200, layer1);
-		layer2.AddChild(mars);
+		// Add Enemy:
+		Enemy enemy = new Enemy();
+		collisionStuff.AddChild(enemy);
+
+		// Add mars
+		planet mars = new planet("spurral.png", 1, 200, 200, gravityLayer);
+		collisionStuff.AddChild(mars);
 
 
 		//temporarily -> will be put in a class 
