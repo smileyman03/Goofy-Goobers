@@ -5,6 +5,7 @@ using System.Collections.Generic;
 public class MyGame : Game {
 	public Pivot screen;
 	public Pivot background = new Pivot();
+	public Pivot pickupLayer = new Pivot();
 	public Pivot ropeLayer = new Pivot();
 	public Pivot collisionStuff = new Pivot();
 	public MyGame() : base(1920, 1080, false)     // Create a window that's 800x600 and NOT fullscreen
@@ -16,19 +17,33 @@ public class MyGame : Game {
 		screen.x = 0;
 		AddChild(screen);
 		screen.AddChild(background);
+		screen.AddChild(pickupLayer);
 		screen.AddChild(ropeLayer);
 		screen.AddChild(collisionStuff);
 
-		// Add Player:
-		Player player = new Player();
-		collisionStuff.AddChild(player);
+		// Add Pickups:
+		BoostPickup boostPickup = new BoostPickup(600, 200);
+		pickupLayer.AddChild(boostPickup);
 
-		// Add Rope that consists of 25 segments:
-		Rope rope = new Rope(25, player);
-		ropeLayer.AddChild(rope);
+		RepairPickup repairPickup = new RepairPickup(600, 800);
+		pickupLayer.AddChild(repairPickup);
 
-		// Add asteroid that's 1 of 3 random skins:
-		Asteroid asteroid;
+		ShieldPickup shieldPickup = new ShieldPickup(1200, 200);
+		pickupLayer.AddChild(shieldPickup);
+
+		FuelPickup fuelPickup = new FuelPickup(1200, 800);
+		pickupLayer.AddChild(fuelPickup);
+
+        // Add Player:
+        Player player = new Player();
+        collisionStuff.AddChild(player);
+
+        // Add Rope that consists of 25 segments:
+        Rope rope = new Rope(25, player);
+        ropeLayer.AddChild(rope);
+
+        // Add asteroid that's 1 of 3 random skins:
+        Asteroid asteroid;
         float asteroidSkin = Utils.Random(0, 3);
 		switch (asteroidSkin)
 		{

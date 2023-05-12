@@ -16,6 +16,7 @@ public class Enemy : AnimationSprite
     private Vector2 newPosition;
     private Vector2 velocity;
     private float mass = 1.95f;
+    private float collisionTimer = 0;
     public Enemy() : base("enemy.png", 4, 1)
     {
         scale = 0.25f;
@@ -25,10 +26,12 @@ public class Enemy : AnimationSprite
     {
         ClimbRope();
         AttachToRope();
+        CollisionTimer();
+        CheckHP();
     }
     void OnCollision(GameObject other)
     {
-        if (other is Asteroid)
+        if (other is Asteroid && collisionTimer == 0)
         {
             Asteroid asteroid = (Asteroid)other;
 
@@ -59,6 +62,9 @@ public class Enemy : AnimationSprite
 
             //Damage:
             CalculateDamage(centerOfMass);
+
+            //Start timer:
+            collisionTimer = 750;
         }
     }
     void ClimbRope()
@@ -68,6 +74,21 @@ public class Enemy : AnimationSprite
         {
             ropesClimbed++;
             timer = 0;
+        }
+
+        MyGame myGame = (MyGame)game;
+        List<GameObject> children = myGame.ropeLayer.GetChildren();
+
+        foreach (GameObject child in children)
+        {
+            if (child is Rope)
+            {
+                Rope rope = (Rope)child;
+                if (ropesClimbed > rope.ropePositions.Count)
+                {
+                    //Do Game over;
+                }
+            }
         }
     }
     void AttachToRope()
@@ -110,6 +131,18 @@ public class Enemy : AnimationSprite
     void CalculateDamage(Vector2 CoM)
     {
         health -= CoM.Length() / 2f;
-        Console.WriteLine("health: " + health);
+    }
+    void CollisionTimer()
+    {
+        if (collisionTimer > 0) collisionTimer -= Time.deltaTime;
+        if (collisionTimer < 0) collisionTimer = 0;
+    }
+
+    void CheckHP()
+    {
+        if (health <= 0)
+        {
+            //Do Victory
+        }
     }
 }

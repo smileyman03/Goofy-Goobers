@@ -18,11 +18,16 @@ public class Player : AnimationSprite
     private Vector2 fResult;
     private float mass = 0.75f;
     private Boolean lostControl = false;
+    private Boolean isBoosting = false;
     private float timer = 0;
     private float animationTimer = 0;
     public Vector2 ropeAttachPoint;
     private float fuelCount = 30000f;
     private float fuelConsumptionRate = 1f;
+    private float boostTimer = 0;
+    private float health = 100;
+    private float shieldTimer = 0;
+    private Boolean hasShield = false;
     public Player() : base("spaceship.png", 4, 1)
     {
         SetOrigin(width / 2, height / 2);
@@ -42,8 +47,8 @@ public class Player : AnimationSprite
         RotateShip();
         UpdateVelocity();
         UpdatePosition();
-        AnimateShip();
         FuelConsumption();
+        Timers();
 
         if (lostControl) LoseControl();
     }
@@ -82,18 +87,12 @@ public class Player : AnimationSprite
                 {
                     fResult += velocity;
                 }
-            }
 
-            if (Input.GetKey(Key.SPACE) && fuelCount > 0)
-            {
-                fResult += velocity * 1.5f;
-                fuelConsumptionRate = 2.5f;
+                if (isBoosting)
+                {
+                    fResult += velocity;
+                }
             }
-        }
-
-        if (!Input.GetKey(Key.SPACE) || lostControl)
-        {
-            fuelConsumptionRate = 1f;
         }
     }
     private void UpdatePosition()
@@ -128,6 +127,50 @@ public class Player : AnimationSprite
 
             lostControl = true;
             timer = 0;
+
+            //damage:
+            if (!hasShield) health -= 25;
+            else hasShield = false;
+
+            Console.WriteLine(health);
+        }
+
+        // pickups:
+        if (other is BoostPickup)
+        {
+            isBoosting = true;
+            fuelConsumptionRate = 2f;
+            boostTimer = 2000f;
+
+            //Delete pickup:
+            other.LateDestroy();
+        }
+
+        if (other is RepairPickup)
+        {
+            health += 25;
+            if (health > 100) health = 100;
+
+            //Delete pickup:
+            other.LateDestroy();
+        }
+
+        if (other is ShieldPickup)
+        {
+            hasShield = true;
+            shieldTimer = 5000;
+
+            //Delete pickup:
+            other.LateDestroy();
+        }
+
+        if (other is FuelPickup)
+        {
+            fuelCount += 15000;
+            if (fuelCount > 30000) fuelCount = 30000;
+
+            //Delete pickup:
+            other.LateDestroy();
         }
     }
     void LoseControl()
@@ -135,9 +178,49 @@ public class Player : AnimationSprite
         timer += Time.deltaTime;
         if (timer >= 1000) lostControl = false;
     }
-    void AnimateShip()
+    void FuelConsumption()
     {
-        if ((Input.GetKey(Key.W) || Input.GetKey(Key.A) || Input.GetKey(Key.D) || Input.GetKey(Key.SPACE)) && fuelCount > 0)
+        if ((Input.GetKey(Key.W) || Input.GetKey(Key.A) || Input.GetKey(Key.D)) && fuelCount > 0 && !lostControl)
+        {
+            fuelCount -= Time.deltaTime * fuelConsumptionRate;
+            Console.WriteLine("fuel: " + fuelCount);
+        }
+
+        // lose on 0 fuel:
+        if (fuelCount <= 0)
+        {
+            //Do game over:
+        }
+    }
+    void Timers()
+    {
+        //Shield timer:
+        if (shieldTimer > 0)
+        {
+            shieldTimer -= Time.deltaTime;
+        }
+
+        else
+        {
+            hasShield = false;
+            shieldTimer = 0;
+        }
+
+        //Boost timer:
+        if (boostTimer > 0)
+        {
+            boostTimer -= Time.deltaTime;
+        }
+
+        else
+        {
+            isBoosting = false;
+            boostTimer = 0;
+            fuelConsumptionRate = 1;
+        }
+
+        //Ship animation:
+        if ((Input.GetKey(Key.W) || Input.GetKey(Key.A) || Input.GetKey(Key.D)) && fuelCount > 0)
         {
             animationTimer += Time.deltaTime;
             if (animationTimer >= 200)
@@ -145,14 +228,6 @@ public class Player : AnimationSprite
                 NextFrame();
                 animationTimer = 0;
             }
-        }
-    }
-    void FuelConsumption()
-    {
-        if ((Input.GetKey(Key.W) || Input.GetKey(Key.A) || Input.GetKey(Key.D) || Input.GetKey(Key.SPACE)) && fuelCount > 0 && !lostControl)
-        {
-            fuelCount -= Time.deltaTime * fuelConsumptionRate;
-            Console.WriteLine("Fuel: " + fuelCount);
         }
     }
 }
