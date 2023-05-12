@@ -8,10 +8,10 @@ using System.Threading.Tasks;
 using GXPEngine;
 using GXPEngine.Core;
 using System.Collections;
-public class planet : Sprite
+public class Planet : Sprite
 {
 
-    public planet(string sprite, float gravity, int sX, int sY, Pivot layer, int strength) : base(sprite)
+    public Planet(string sprite, float gravity, int sX, int sY, Pivot layer, int strength) : base(sprite)
     {
         SetOrigin(width / 2, height / 2);
         x = sX;

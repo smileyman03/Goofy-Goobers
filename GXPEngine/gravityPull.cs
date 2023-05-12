@@ -43,7 +43,7 @@ public class Gravity : Sprite
 
     void OnCollision(GameObject Collider)
     {
-        if(Collider is planet)
+        if(Collider is Planet)
         {
             
         }

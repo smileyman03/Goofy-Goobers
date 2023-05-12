@@ -137,10 +137,10 @@ public class Player : AnimationSprite
             Console.WriteLine(health);
         }
 
-        if (other is planet)
+        if (other is Planet)
         {
             
-            planet planet = (planet)other;
+            Planet planet = (Planet)other;
             Vector2 main;
             Vector2 pos;
             float angleX;

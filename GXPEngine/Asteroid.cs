@@ -19,4 +19,68 @@ public class Asteroid : Sprite
         x += velocity.x;
         y += velocity.y;
     }
+
+
+    void OnCollision(GameObject other)
+    {
+        if (other is Planet)
+        {
+
+            Planet planet = (Planet)other;
+            Vector2 main;
+            Vector2 pos;
+            float angleX;
+            main.x = x;
+            main.y = y;
+
+            pos.x = planet.x;
+            pos.y = planet.y;
+
+            pos = pos - main;
+
+            if (pos.Length() < planet.width / 2 + width / 2)
+            {
+                main = -velocity;
+                if (pos.GetAngleDegrees() > main.GetAngleDegrees())
+                {
+                    angleX = pos.GetAngleDegrees() - main.GetAngleDegrees();
+                    main.SetAngleDegrees(main.GetAngleDegrees() + angleX * 2);
+                }
+                else
+                {
+                    angleX = pos.GetAngleDegrees() - pos.GetAngleDegrees();
+                    main.SetAngleDegrees(main.GetAngleDegrees() - angleX * 2);
+                }
+
+                velocity = main;
+            }
+
+
+        }
+        if (other is Gravity)
+        {
+            Gravity pull = (Gravity)other;
+            Vector2 center;
+            Vector2 ship;
+
+            ship.x = x;
+            ship.y = y;
+
+            center.x = pull.x;
+            center.y = pull.y;
+
+
+
+            if (ship.DistanceTo(center) < pull.width / 2 + width / 2)
+            {
+                Console.WriteLine("collide");
+                velocity += (center - ship).Normalized() * 0.1f * pull.pullStrength;
+
+            }
+
+        }
+    }
+
+
+
 }

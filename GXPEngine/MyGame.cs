@@ -49,7 +49,7 @@ public class MyGame : Game {
 		collisionStuff.AddChild(enemy);
 
 		// Add mars
-		planet mars = new planet("spurral.png", 1, 600, 600, gravityLayer, -1);
+		Planet mars = new Planet("spurral.png", 1, 600, 600, gravityLayer, 1);
 		collisionStuff.AddChild(mars);
 
 
