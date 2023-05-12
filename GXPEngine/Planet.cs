@@ -10,7 +10,6 @@ using GXPEngine.Core;
 using System.Collections;
 public class Planet : Sprite
 {
-
     public Planet(string sprite, float gravity, int sX, int sY, Pivot layer, int strength) : base(sprite)
     {
         SetOrigin(width / 2, height / 2);

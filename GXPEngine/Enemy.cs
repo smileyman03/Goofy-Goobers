@@ -31,10 +31,53 @@ public class Enemy : AnimationSprite
     }
     void OnCollision(GameObject other)
     {
-      
-        
+        if (other is Planet)
+        {
+            Console.WriteLine("collide");
+            Planet planet = (Planet)other;
+            Vector2 main;
+            Vector2 pos;
+            float angleX;
+            main.x = x;
+            main.y = y;
 
-            if (other is Asteroid && collisionTimer == 0)
+            pos.x = planet.x;
+            pos.y = planet.y;
+
+            pos = pos - main;
+
+            if (pos.Length() < planet.width / 2 + width / 2)
+            {
+                main = -velocity;
+                if (pos.GetAngleDegrees() > main.GetAngleDegrees())
+                {
+                    angleX = pos.GetAngleDegrees() - main.GetAngleDegrees();
+                    main.SetAngleDegrees(main.GetAngleDegrees() + angleX * 2);
+                }
+                else
+                {
+                    angleX = pos.GetAngleDegrees() - pos.GetAngleDegrees();
+                    main.SetAngleDegrees(main.GetAngleDegrees() - angleX * 2);
+                }
+
+                MyGame myGame = (MyGame)game;
+                List<GameObject> children = myGame.ropeLayer.GetChildren();
+
+                foreach (GameObject child in children)
+                {
+                    if (child is Rope)
+                    {
+                        Rope rope = (Rope)child;
+
+                        // Bounce calculation:
+                        rope.additionalVelocity = main;
+                    }
+                }
+
+            }
+        }
+
+        if (other is Asteroid && collisionTimer == 0)
         {
             Asteroid asteroid = (Asteroid)other;
 

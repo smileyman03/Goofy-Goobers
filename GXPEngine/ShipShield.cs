@@ -11,8 +11,4 @@ public class ShipShield : Sprite
         scale = 0.3f;
         SetOrigin(1.75f * width, 1.75f * height);
     }
-
-    void Update()
-    {
-    }
 }

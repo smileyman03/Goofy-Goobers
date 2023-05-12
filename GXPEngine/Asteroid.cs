@@ -19,13 +19,10 @@ public class Asteroid : Sprite
         x += velocity.x;
         y += velocity.y;
     }
-
-
     void OnCollision(GameObject other)
     {
         if (other is Planet)
         {
-
             Planet planet = (Planet)other;
             Vector2 main;
             Vector2 pos;
@@ -51,11 +48,8 @@ public class Asteroid : Sprite
                     angleX = pos.GetAngleDegrees() - pos.GetAngleDegrees();
                     main.SetAngleDegrees(main.GetAngleDegrees() - angleX * 2);
                 }
-
                 velocity = main;
             }
-
-
         }
         if (other is Gravity)
         {
@@ -69,18 +63,11 @@ public class Asteroid : Sprite
             center.x = pull.x;
             center.y = pull.y;
 
-
-
             if (ship.DistanceTo(center) < pull.width / 2 + width / 2)
             {
                 Console.WriteLine("collide");
                 velocity += (center - ship).Normalized() * 0.1f * pull.pullStrength;
-
             }
-
         }
     }
-
-
-
 }

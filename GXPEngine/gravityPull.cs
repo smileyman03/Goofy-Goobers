@@ -20,9 +20,6 @@ public class Gravity : Sprite
         y = sY;
         pullStrength = strength;
         SetScaleXY(size);
-        
-
-
     }
     void Update()
     {
@@ -44,12 +41,10 @@ public class Gravity : Sprite
     void OnCollision(GameObject Collider)
     {
         if(Collider is Planet)
-        {
-            
+        { 
         }
         else
         {
-       
         }
         
     }
