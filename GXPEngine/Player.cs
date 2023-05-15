@@ -31,6 +31,7 @@ public class Player : AnimationSprite
     private float collisionCooldownTimer = 0;
     ShipShield shield;
     private SoundChannel spaceshipSound = new Sound("spaceshipSounds.wav").Play();
+    private SoundChannel shieldSound;
     public Player(int sX, int sY) : base("spaceship.png", 4, 1)
     {
         SetOrigin(width / 2, height / 2);
