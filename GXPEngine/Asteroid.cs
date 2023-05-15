@@ -21,6 +21,22 @@ public class Asteroid : Sprite
     }
     void OnCollision(GameObject other)
     {
+        if (other is Asteroid)
+        {
+            Asteroid asteroid = (Asteroid)other;
+
+            //Calculate CoM:
+            Vector2 asteroidMomentum = asteroid.velocity.GetMomentum(asteroid.mass);
+            Vector2 thisMomentum = velocity.GetMomentum(mass);
+            Vector2 centerOfMass = (asteroidMomentum + thisMomentum) / (asteroid.mass + mass);
+
+            //Apply bounce to other asteroid
+            asteroid.velocity = centerOfMass - 1 * (asteroid.velocity - centerOfMass);
+
+            //Apply bounce to this asteroid
+            velocity = centerOfMass - 1 * (velocity - centerOfMass);
+        }
+        
         if (other is Planet)
         {
             Planet planet = (Planet)other;
@@ -65,7 +81,7 @@ public class Asteroid : Sprite
 
             if (ship.DistanceTo(center) < pull.width / 2 + width / 2)
             {
-                Console.WriteLine("collide");
+                //Console.WriteLine("collide");
                 velocity += (center - ship).Normalized() * 0.1f * pull.pullStrength;
             }
         }

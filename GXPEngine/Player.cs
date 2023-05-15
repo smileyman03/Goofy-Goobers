@@ -150,7 +150,7 @@ public class Player : AnimationSprite
                     shield.LateDestroy();
                 }
             }
-            Console.WriteLine("player hp: " + health);
+           // Console.WriteLine("player hp: " + health);
         }
 
         if (other is Planet)
@@ -208,7 +208,7 @@ public class Player : AnimationSprite
                         shield.LateDestroy();
                     }
                 }
-                Console.WriteLine("player hp: " + health);
+              //  Console.WriteLine("player hp: " + health);
             }
         }
 
@@ -228,7 +228,7 @@ public class Player : AnimationSprite
 
             if (ship.DistanceTo(center) < pull.width / 2 + width / 2)
             {
-                Console.WriteLine("collide");
+                //Console.WriteLine("collide");
                 fResult += (center - ship).Normalized() * 0.1f *pull.pullStrength;
               
             }
@@ -286,7 +286,7 @@ public class Player : AnimationSprite
         if ((Input.GetKey(Key.W) || Input.GetKey(Key.A) || Input.GetKey(Key.D)) && fuelCount > 0 && !lostControl)
         {
             fuelCount -= Time.deltaTime * fuelConsumptionRate;
-            Console.WriteLine("fuel: " + fuelCount);
+            //Console.WriteLine("fuel: " + fuelCount);
         }
 
         // lose on 0 fuel:

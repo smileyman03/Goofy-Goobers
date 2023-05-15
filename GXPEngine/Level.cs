@@ -48,10 +48,10 @@ namespace GXPEngine
                         int tileNumber = tileNumbers[col, row];
                         if (tileNumber > 0)
                         {
-                            
+                            Console.WriteLine(leveldata.Layers[i].Name);
                             //32 is the tile size in tiled
-                            int sX = col * 32;
-                            int sY = row * 32;
+                            int sX = col*32;
+                            int sY = row*32;
                            
                             MyGame myGame = (MyGame)game;
                           
@@ -60,28 +60,28 @@ namespace GXPEngine
                             {
                                 case ("planetBig"):
 
-                                    Planet planet = new Planet("mars.png", 50, sX, sY, myGame.gravityLayer, 10);
+                                    Planet planet = new Planet("mars.png", 2, sX, sY, myGame.gravityLayer, 10);
                                     myGame.collisionStuff.LateAddChild(planet);
                                     break;
                                 case ("planetMedium"):
-                                    Planet planet1 = new Planet("spurral.png", 40, sX, sY, myGame.gravityLayer, 15);
+                                    Planet planet1 = new Planet("spurral.png", 2, sX, sY, myGame.gravityLayer, 10);
                                     myGame.collisionStuff.LateAddChild(planet1);
                                     break;
                                 case ("planetSmall"):
-                                    Planet planet2 = new Planet("jupurter.png", 60, sX, sY, myGame.gravityLayer, 5);
+                                    Planet planet2 = new Planet("jupurter.png", 2, sX, sY, myGame.gravityLayer, 10);
                                     myGame.collisionStuff.LateAddChild(planet2);
                                     break;
-                                case ("astroid1"):
+                                case ("asteroid1"):
                                     Asteroid asteroid = new Asteroid("asteroid1.png");
                                     myGame.collisionStuff.LateAddChild(asteroid);
                                     break;
 
-                                case ("astroid2"):
+                                case ("asteroid2"):
                                     Asteroid asteroid1 = new Asteroid("asteroid2.png");
                                     myGame.collisionStuff.LateAddChild(asteroid1);
                                     break;
 
-                                case ("astroid3"):
+                                case ("asteroid3"):
                                     Asteroid asteroid2 = new Asteroid("asteroid3.png");
                                     myGame.collisionStuff.LateAddChild(asteroid2);
                                     break;

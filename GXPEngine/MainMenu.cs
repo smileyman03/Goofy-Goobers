@@ -16,7 +16,7 @@ public class MainMenu : GameObject
 
     void Update()
     {
-        Console.WriteLine("X: " + Input.mouseX + " Y: " + Input.mouseY);
+       // Console.WriteLine("X: " + Input.mouseX + " Y: " + Input.mouseY);
         MyGame myGame = (MyGame)game;
 
         switch (currentMenu)

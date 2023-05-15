@@ -38,7 +38,7 @@ public class Enemy : AnimationSprite
     {
         if (other is Planet)
         {
-            Console.WriteLine("collide");
+          //  Console.WriteLine("collide");
             Planet planet = (Planet)other;
             Vector2 main;
             Vector2 pos;
