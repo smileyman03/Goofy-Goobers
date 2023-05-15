@@ -42,6 +42,7 @@
   <ItemGroup>
     <Compile Include="Asteroid.cs" />
     <Compile Include="Background.cs" />
+    <Compile Include="Class1.cs" />
     <Compile Include="gravityPull.cs" />
     <Compile Include="Level.cs" />
     <Compile Include="Planet.cs" />
@@ -95,6 +96,7 @@
     <Compile Include="Rope.cs" />
     <Compile Include="ShieldPickup.cs" />
     <Compile Include="ShipShield.cs" />
+    <Compile Include="wreckPieces.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />

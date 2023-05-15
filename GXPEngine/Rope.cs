@@ -115,7 +115,7 @@ public class Rope : GameObject
             //Console.WriteLine(segmentList[0]);
             oldVector = segmentList[i - 1];
             newVector = segmentList[i];
-            Gizmos.SetColor(0.75f, 0, 1);
+            Gizmos.SetColor(0.4f, 0, 1);
             Gizmos.DrawLine(oldVector.x, oldVector.y, newVector.x, newVector.y);
         }
     }

@@ -202,7 +202,7 @@ public class Player : AnimationSprite
                         if (health <= 0)
                         {
                             MyGame myGame = (MyGame)game;
-                            myGame.LevelOver("GameOver");
+                            
                         }
                     }
                     else
