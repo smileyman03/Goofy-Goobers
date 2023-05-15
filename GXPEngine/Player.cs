@@ -31,14 +31,13 @@ public class Player : AnimationSprite
     private float collisionCooldownTimer = 0;
     ShipShield shield;
     private SoundChannel spaceshipSound = new Sound("spaceshipSounds.wav").Play();
-    private SoundChannel shieldSound;
-    public Player() : base("spaceship.png", 4, 1)
+    public Player(int sX, int sY) : base("spaceship.png", 4, 1)
     {
         SetOrigin(width / 2, height / 2);
         scale = 0.1f;
         x = game.width/2;
         y = game.height/2;
-
+        SetXY(sX, sY);
         // Rope attach point:
         ropeAttachPoint = new Vector2(x, y + (height / 2));
     }
@@ -233,7 +232,7 @@ public class Player : AnimationSprite
 
             if (ship.DistanceTo(center) < pull.width / 2 + width / 2)
             {
-                Console.WriteLine("collide");
+                //Console.WriteLine("collide");
                 fResult += (center - ship).Normalized() * 0.1f *pull.pullStrength;
               
             }
@@ -300,7 +299,7 @@ public class Player : AnimationSprite
         if ((Input.GetKey(Key.W) || Input.GetKey(Key.A) || Input.GetKey(Key.D)) && fuelCount > 0 && !lostControl)
         {
             fuelCount -= Time.deltaTime * fuelConsumptionRate;
-            Console.WriteLine("fuel: " + fuelCount);
+            //Console.WriteLine("fuel: " + fuelCount);
         }
 
         // lose on 0 fuel:

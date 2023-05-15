@@ -90,6 +90,7 @@ public class MyGame : Game {
         {
             case (1):
                 Level loaded = new Level("level1.tmx");
+                
                 break;
             case (2):
                 Level loaded1 = new Level("level2.tmx");

@@ -34,11 +34,14 @@ public class Enemy : AnimationSprite
         CheckHP();
         Animation();
     }
+
+
+
     void OnCollision(GameObject other)
     {
         if (other is Planet)
         {
-            Console.WriteLine("collide");
+          //  Console.WriteLine("collide");
             Planet planet = (Planet)other;
             Vector2 main;
             Vector2 pos;
@@ -67,7 +70,7 @@ public class Enemy : AnimationSprite
 
                 MyGame myGame = (MyGame)game;
                 List<GameObject> children = myGame.ropeLayer.GetChildren();
-
+                
                 foreach (GameObject child in children)
                 {
                     if (child is Rope)
@@ -75,7 +78,8 @@ public class Enemy : AnimationSprite
                         Rope rope = (Rope)child;
 
                         // Bounce calculation:
-                        rope.additionalVelocity = main;
+                        rope.additionalVelocity = main*1f;
+                        
                     }
                 }
 
@@ -89,7 +93,7 @@ public class Enemy : AnimationSprite
                 SoundChannel alienHit = new Sound("Alien_Hit.wav").Play();
             }
         }
-
+        
         if (other is Asteroid && collisionTimer == 0)
         {
             Asteroid asteroid = (Asteroid)other;
@@ -115,7 +119,7 @@ public class Enemy : AnimationSprite
                     Rope rope = (Rope)child;
 
                     // Bounce calculation:
-                    rope.additionalVelocity = centerOfMass - 1 * (enemyMomentum - centerOfMass);
+                    rope.additionalVelocity = (centerOfMass - 1 * (enemyMomentum - centerOfMass))/3;
                 }
             }
 
