@@ -46,6 +46,7 @@ public class Enemy : AnimationSprite
             Vector2 main;
             Vector2 pos;
             float angleX;
+
             main.x = x;
             main.y = y;
 
@@ -57,15 +58,17 @@ public class Enemy : AnimationSprite
             if (pos.Length() < planet.width / 2 + width / 2)
             {
                 main = -velocity;
+
                 if (pos.GetAngleDegrees() > main.GetAngleDegrees())
                 {
                     angleX = pos.GetAngleDegrees() - main.GetAngleDegrees();
-                    main.SetAngleDegrees(main.GetAngleDegrees() + angleX * 2);
+                    main.SetAngleDegrees(angleX);
                 }
                 else
                 {
                     angleX = pos.GetAngleDegrees() - pos.GetAngleDegrees();
-                    main.SetAngleDegrees(main.GetAngleDegrees() - angleX * 2);
+                    main.SetAngleDegrees(angleX);
+                
                 }
 
                 MyGame myGame = (MyGame)game;
@@ -94,7 +97,45 @@ public class Enemy : AnimationSprite
                 SoundChannel alienScream = new Sound("cat_scream.wav").Play();
             }
         }
-        
+        if (other is Gravity)
+        {
+            //  Console.WriteLine("collide");
+            Gravity planet = (Gravity)other;
+            Vector2 main;
+            Vector2 pos;
+            float angleX;
+
+            main.x = x;
+            main.y = y;
+
+            pos.x = planet.x;
+            pos.y = planet.y;
+
+            pos = pos - main;
+
+            if (pos.Length() < planet.width / 2 + width / 2)
+            {
+                pos = pos.Normalized();
+
+                MyGame myGame = (MyGame)game;
+                List<GameObject> children = myGame.ropeLayer.GetChildren();
+
+                foreach (GameObject child in children)
+                {
+                    if (child is Rope)
+                    {
+                        Rope rope = (Rope)child;
+
+                        // Bounce calculation:
+                        rope.additionalVelocity += pos * 0.1f;
+
+                    }
+                }
+
+             
+            }
+        }
+
         if (other is Asteroid && collisionTimer == 0)
         {
             Asteroid asteroid = (Asteroid)other;
@@ -241,8 +282,9 @@ public class Enemy : AnimationSprite
         if (health <= 0)
         {
             MyGame myGame = (MyGame)game;
-            myGame.LevelOver("WinScreen");
+            
             SoundChannel enemyDies = new Sound("Enemy_Explodes.wav").Play();
+            Destroy();
         }
     }
 
