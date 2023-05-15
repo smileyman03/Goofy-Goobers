@@ -60,15 +60,15 @@ namespace GXPEngine
                             {
                                 case ("planetBig"):
 
-                                    Planet planet = new Planet("mars.png", 2, sX, sY, myGame.gravityLayer, 10);
+                                    Planet planet = new Planet("mars.png", 2, sX, sY, myGame.gravityLayer, 2);
                                     myGame.collisionStuff.LateAddChild(planet);
                                     break;
                                 case ("planetMedium"):
-                                    Planet planet1 = new Planet("spurral.png", 2, sX, sY, myGame.gravityLayer, 10);
+                                    Planet planet1 = new Planet("spurral.png", 2, sX, sY, myGame.gravityLayer, 2);
                                     myGame.collisionStuff.LateAddChild(planet1);
                                     break;
                                 case ("planetSmall"):
-                                    Planet planet2 = new Planet("jupurter.png", 2, sX, sY, myGame.gravityLayer, 10);
+                                    Planet planet2 = new Planet("jupurter.png", 2.4f, sX, sY, myGame.gravityLayer, 1);
                                     myGame.collisionStuff.LateAddChild(planet2);
                                     break;
                                 case ("asteroid1"):
@@ -107,7 +107,7 @@ namespace GXPEngine
                                     break;
 
                                 case ("player"):
-                                    Player player = new Player();
+                                    Player player = new Player(sX, sY);
                                     Rope rope = new Rope(25, player);
                                     Enemy enemy = new Enemy();
                                     myGame.collisionStuff.LateAddChild(player);

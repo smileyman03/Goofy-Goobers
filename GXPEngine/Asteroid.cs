@@ -9,15 +9,18 @@ public class Asteroid : Sprite
 {
     public Vector2 velocity = new Vector2(2, 0);
     public float mass = 1f;
+    private float randomRotation;
     public Asteroid(string image) : base(image)
     {
         SetOrigin(width / 2, height / 2);
         SetXY(0, game.height/2);
+        randomRotation = Utils.Random(-100, 100)/50;
     }
     void Update()
     {
         x += velocity.x;
         y += velocity.y;
+        rotation += randomRotation;
     }
     void OnCollision(GameObject other)
     {
