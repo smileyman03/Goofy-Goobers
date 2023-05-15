@@ -32,7 +32,7 @@ public class Player : AnimationSprite
     ShipShield shield;
     private SoundChannel spaceshipSound = new Sound("spaceshipSounds.wav").Play();
     private SoundChannel shieldSound;
-    public Player(int sX, int sY) : base("spaceship.png", 4, 1)
+    public Player(float sX, float sY) : base("spaceship.png", 4, 1)
     {
         SetOrigin(width / 2, height / 2);
         scale = 0.1f;

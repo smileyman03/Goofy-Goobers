@@ -91,6 +91,7 @@ public class Enemy : AnimationSprite
 
                 //Sound:
                 SoundChannel alienHit = new Sound("Alien_Hit.wav").Play();
+                SoundChannel alienScream = new Sound("cat_scream.wav").Play();
             }
         }
         
@@ -133,6 +134,7 @@ public class Enemy : AnimationSprite
 
             //Sound:
             SoundChannel alienHit = new Sound("Alien_Hit.wav").Play();
+            SoundChannel alienScream = new Sound("cat_scream.wav").Play();
         }
     }
     void ClimbRope()
