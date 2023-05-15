@@ -183,33 +183,33 @@ public class Player : AnimationSprite
                 }
 
                 fResult = main;
-            }
 
-            if (collisionCooldownTimer <= 0)
-            {
-                collisionCooldownTimer = 500;
-                lostControl = true;
-                timer = 0;
-
-                //damage:
-                if (!hasShield)
+                if (collisionCooldownTimer <= 0)
                 {
-                    health -= 25;
+                    collisionCooldownTimer = 500;
+                    lostControl = true;
+                    timer = 0;
 
-                    //lose on 0 hp:
-                    if (health <= 0)
+                    //damage:
+                    if (!hasShield)
                     {
-                        MyGame myGame = (MyGame)game;
-                        myGame.LevelOver("GameOver");
+                        health -= 25;
+
+                        //lose on 0 hp:
+                        if (health <= 0)
+                        {
+                            MyGame myGame = (MyGame)game;
+                            myGame.LevelOver("GameOver");
+                        }
+                    }
+                    else
+                    {
+                        hasShield = false;
+                        shield.LateDestroy();
                     }
                 }
-                else
-                {
-                    hasShield = false;
-                    shield.LateDestroy();
-                }
+                Console.WriteLine("player hp: " + health);
             }
-            Console.WriteLine("player hp: " + health);
         }
 
         if (other is Gravity)

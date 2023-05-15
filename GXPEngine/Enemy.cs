@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
+using System.Security.Permissions;
 using System.Text;
 using System.Threading.Tasks;
 using GXPEngine;
@@ -17,6 +19,7 @@ public class Enemy : AnimationSprite
     private Vector2 velocity;
     private float mass = 1.95f;
     private float collisionTimer = 0;
+    private float animationTimer = 0;
     public Enemy() : base("enemy.png", 4, 1)
     {
         scale = 0.25f;
@@ -26,8 +29,10 @@ public class Enemy : AnimationSprite
     {
         ClimbRope();
         AttachToRope();
+        Rotate();
         CollisionTimer();
         CheckHP();
+        Animation();
     }
     void OnCollision(GameObject other)
     {
@@ -74,6 +79,11 @@ public class Enemy : AnimationSprite
                     }
                 }
 
+                //Damage:
+                CalculateDamage(velocity);
+
+                //Start timer:
+                collisionTimer = 750;
             }
         }
 
@@ -134,7 +144,7 @@ public class Enemy : AnimationSprite
                 Rope rope = (Rope)child;
                 if (ropesClimbed > rope.segmentList.Count)
                 {
-                    //Do Game over;
+                    myGame.LevelOver("GameOver");
                 }
             }
         }
@@ -163,7 +173,8 @@ public class Enemy : AnimationSprite
 
                         // Change position:
                         Vector2 position = rope.segmentList[i];
-                        x = position.x;
+                        if (rope.segmentList[i].y > rope.segmentList[i - 1].y) x = position.x - 50;
+                        else x = position.x + 50;
                         y = position.y;
 
                         // Save new position:
@@ -176,9 +187,36 @@ public class Enemy : AnimationSprite
             }
         }
     }
+    void Rotate()
+    {
+        //Find rope:
+        MyGame myGame = (MyGame)game;
+        List<GameObject> children = myGame.ropeLayer.GetChildren();
+
+        foreach (GameObject child in children)
+        {
+            if (child is Rope)
+            {
+                // Set rope segment to which enemy needs to be attached:
+                Rope rope = (Rope)child;
+                attachedToRopeSegment = rope.segmentList.Count - 1 - ropesClimbed;
+
+                // Set XY to rope segment XY:
+                for (int i = rope.segmentList.Count - 1; i >= 0; i--)
+                {
+                    if (i == attachedToRopeSegment)
+                    {
+                        Vector2 vec = rope.segmentList[i] - rope.segmentList[i-1];
+                        float angle = vec.GetAngleDegrees();
+                        rotation = angle - 90;
+                    }
+                }
+            }
+        }
+    }
     void CalculateDamage(Vector2 CoM)
     {
-        health -= CoM.Length() / 2f;
+        health -= CoM.Length();
     }
     void CollisionTimer()
     {
@@ -190,7 +228,19 @@ public class Enemy : AnimationSprite
     {
         if (health <= 0)
         {
-            //Do Victory
+            MyGame myGame = (MyGame)game;
+            myGame.LevelOver("WinScreen");
+        }
+    }
+
+    void Animation()
+    {
+        animationTimer += Time.deltaTime;
+
+        if (animationTimer <= 200)
+        {
+            animationTimer = 0;
+            NextFrame();
         }
     }
 }
