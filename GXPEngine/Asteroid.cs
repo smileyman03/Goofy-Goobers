@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using GXPEngine;
 using GXPEngine.Core;
@@ -21,6 +22,22 @@ public class Asteroid : Sprite
     }
     void OnCollision(GameObject other)
     {
+        if (other is Asteroid)
+        {
+            Asteroid asteroid = (Asteroid)other;
+
+            //Calculate CoM:
+            Vector2 asteroidMomentum = asteroid.velocity.GetMomentum(asteroid.mass);
+            Vector2 thisMomentum = velocity.GetMomentum(mass);
+            Vector2 centerOfMass = (asteroidMomentum + thisMomentum) / (asteroid.mass + mass);
+
+            //Apply bounce to other asteroid
+            asteroid.velocity = centerOfMass - 1 * (asteroid.velocity - centerOfMass);
+
+            //Apply bounce to this asteroid
+            velocity = centerOfMass - 1 * (velocity - centerOfMass);
+        }
+
         if (other is Planet)
         {
             Planet planet = (Planet)other;
@@ -51,6 +68,7 @@ public class Asteroid : Sprite
                 velocity = main;
             }
         }
+
         if (other is Gravity)
         {
             Gravity pull = (Gravity)other;

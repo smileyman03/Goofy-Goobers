@@ -114,17 +114,7 @@ namespace GXPEngine
                                     myGame.ropeLayer.LateAddChild(rope);
                                     myGame.collisionStuff.LateAddChild(enemy);
                                     break;
-
-                            
                             }
-
-
-
-
-
-
-
-
                         }
                     }
                 }

@@ -31,6 +31,7 @@ public class Player : AnimationSprite
     private float collisionCooldownTimer = 0;
     ShipShield shield;
     private SoundChannel spaceshipSound = new Sound("spaceshipSounds.wav").Play();
+    private SoundChannel shieldSound;
     public Player() : base("spaceship.png", 4, 1)
     {
         SetOrigin(width / 2, height / 2);
@@ -148,9 +149,11 @@ public class Player : AnimationSprite
                 {
                     hasShield = false;
                     shield.LateDestroy();
+                    shieldSound.Stop();
+                    shieldSound = new Sound("Shield_Down.wav").Play();
                 }
             }
-            Console.WriteLine("player hp: " + health);
+            SoundChannel playerHit = new Sound("Player_Hit.wav").Play();
         }
 
         if (other is Planet)
@@ -206,9 +209,11 @@ public class Player : AnimationSprite
                     {
                         hasShield = false;
                         shield.LateDestroy();
+                        shieldSound.Stop();
+                        shieldSound = new Sound("Shield_Down.wav").Play();
                     }
                 }
-                Console.WriteLine("player hp: " + health);
+                SoundChannel playerHit = new Sound("Player_Hit.wav").Play();
             }
         }
 
@@ -244,6 +249,9 @@ public class Player : AnimationSprite
 
             //Delete pickup:
             other.LateDestroy();
+
+            //Sound:
+            SoundChannel boostSound = new Sound("Boost.wav").Play();
         }
 
         if (other is RepairPickup)
@@ -253,6 +261,9 @@ public class Player : AnimationSprite
 
             //Delete pickup:
             other.LateDestroy();
+
+            //Sound:
+            SoundChannel repairSound = new Sound("Repair.wav").Play();
         }
 
         if (other is ShieldPickup)
@@ -265,6 +276,9 @@ public class Player : AnimationSprite
 
             //Delete pickup:
             other.LateDestroy();
+
+            //Sound:
+            shieldSound = new Sound("Shield.wav").Play();
         }
 
         if (other is FuelPickup)
@@ -314,6 +328,11 @@ public class Player : AnimationSprite
             if (hasShield) shield.LateDestroy();
             hasShield = false;
             shieldTimer = 0;
+            if (shieldSound != null)
+            {
+                shieldSound.Stop();
+                shieldSound = new Sound("Shield_Down.wav").Play();
+            }
         }
 
         //Boost timer:

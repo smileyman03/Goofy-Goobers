@@ -84,6 +84,9 @@ public class Enemy : AnimationSprite
 
                 //Start timer:
                 collisionTimer = 750;
+
+                //Sound:
+                SoundChannel alienHit = new Sound("Alien_Hit.wav").Play();
             }
         }
 
@@ -123,6 +126,9 @@ public class Enemy : AnimationSprite
 
             //Start timer:
             collisionTimer = 750;
+
+            //Sound:
+            SoundChannel alienHit = new Sound("Alien_Hit.wav").Play();
         }
     }
     void ClimbRope()
@@ -230,6 +236,7 @@ public class Enemy : AnimationSprite
         {
             MyGame myGame = (MyGame)game;
             myGame.LevelOver("WinScreen");
+            SoundChannel enemyDies = new Sound("Enemy_Explodes.wav").Play();
         }
     }
 
