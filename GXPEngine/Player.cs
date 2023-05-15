@@ -28,7 +28,9 @@ public class Player : AnimationSprite
     private float shieldTimer = 0;
     private Boolean hasShield = false;
     private float animationTimer = 0;
+    private float collisionCooldownTimer = 0;
     ShipShield shield;
+    private SoundChannel spaceshipSound = new Sound("spaceshipSounds.wav").Play();
     public Player() : base("spaceship.png", 4, 1)
     {
         SetOrigin(width / 2, height / 2);
@@ -50,6 +52,7 @@ public class Player : AnimationSprite
         UpdatePosition();
         FuelConsumption();
         Timers();
+        DoSounds();
 
         if (lostControl) LoseControl();
     }
@@ -76,7 +79,7 @@ public class Player : AnimationSprite
     }
     private void UpdateVelocity()
     {
-        if (!lostControl && Input.GetKey(Key.W))
+        if (!lostControl && Input.GetKey(Key.W) && fuelCount > 0)
         {
             //Set our angle:
             velocity.SetAngleDegrees(angle);
@@ -123,18 +126,31 @@ public class Player : AnimationSprite
             //Apply bounce to player
             fResult = centerOfMass - 1 * (fResult - centerOfMass);
 
-            lostControl = true;
-            timer = 0;
-
-            //damage:
-            if (!hasShield) health -= 25;
-            else
+            if (collisionCooldownTimer <= 0)
             {
-                hasShield = false;
-                shield.LateDestroy();
-            }
+                collisionCooldownTimer = 500;
+                lostControl = true;
+                timer = 0;
 
-            Console.WriteLine(health);
+                //damage:
+                if (!hasShield)
+                {
+                    health -= 25;
+
+                    //lose on 0 hp:
+                    if (health <= 0)
+                    {
+                        MyGame myGame = (MyGame)game;
+                        myGame.LevelOver("GameOver");
+                    }
+                }
+                else
+                {
+                    hasShield = false;
+                    shield.LateDestroy();
+                }
+            }
+            Console.WriteLine("player hp: " + health);
         }
 
         if (other is Planet)
@@ -169,8 +185,33 @@ public class Player : AnimationSprite
                 fResult = main;
             }
 
-            
+            if (collisionCooldownTimer <= 0)
+            {
+                collisionCooldownTimer = 500;
+                lostControl = true;
+                timer = 0;
+
+                //damage:
+                if (!hasShield)
+                {
+                    health -= 25;
+
+                    //lose on 0 hp:
+                    if (health <= 0)
+                    {
+                        MyGame myGame = (MyGame)game;
+                        myGame.LevelOver("GameOver");
+                    }
+                }
+                else
+                {
+                    hasShield = false;
+                    shield.LateDestroy();
+                }
+            }
+            Console.WriteLine("player hp: " + health);
         }
+
         if (other is Gravity)
         {
             Gravity pull = (Gravity)other;
@@ -251,11 +292,17 @@ public class Player : AnimationSprite
         // lose on 0 fuel:
         if (fuelCount <= 0)
         {
-            //Do game over:
+            MyGame myGame = (MyGame)game;
+            myGame.LevelOver("GameOver");
         }
     }
     void Timers()
     {
+        //Collision timer:
+        if (collisionCooldownTimer != 0)
+        {
+            collisionCooldownTimer -= Time.deltaTime;
+        }
         //Shield timer:
         if (shieldTimer != 0)
         {
@@ -292,5 +339,10 @@ public class Player : AnimationSprite
                 animationTimer = 0;
             }
         }
+    }
+
+    void DoSounds()
+    {
+        if ((Input.GetKey(Key.W) || Input.GetKey(Key.A) || Input.GetKey(Key.D)) && fuelCount > 0 && !lostControl && !spaceshipSound.IsPlaying) spaceshipSound = new Sound("spaceshipSounds.wav").Play();
     }
 }

@@ -15,7 +15,7 @@ public class Planet : Sprite
         SetOrigin(width / 2, height / 2);
         x = sX;
         y = sY;
-        layer.AddChild(new Gravity(gravity, (int)x, (int)y,strength));
+        layer.LateAddChild(new Gravity(gravity, (int)x, (int)y,strength));
     }
     void Update()
     {
