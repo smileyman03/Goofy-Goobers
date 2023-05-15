@@ -12,17 +12,17 @@ namespace GXPEngine
 
 
 
-        private string Tileset = "Black_tiled_but_different.png"; // <---- Add your tileset image right here (there must be no dead space inbetween the tiles)
+        private string Tileset = "mars.png"; // <---- Add your tileset image right here (there must be no dead space inbetween the tiles)
 
         private int TilesetCollumbs;
         private int TilesetRows;
         Player player1;
 
 
-        public Level(string filename, Player player)
+        public Level(string filename)
         {
             Map leveldata = MapParser.ReadMap(filename);
-            player1 = player;
+            
             Sprite Tilesets = new Sprite(Tileset, false, false); // creates a sprite object to get the width and height of the total tileset
             TilesetRows = Tilesets.width / leveldata.TileWidth; // devides the width of the tilesets total width by that of the tiles
             TilesetCollumbs = Tilesets.height / leveldata.TileHeight; // ^ but for height

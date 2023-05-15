@@ -39,7 +39,7 @@ public class MainMenu : GameObject
                 //clicked restart:
                 if (Input.GetMouseButtonDown(0) && Input.mouseX >= 760 && Input.mouseX <= 1170 && Input.mouseY >= 450 && Input.mouseY <= 575)
                 {
-                    myGame.StartLevel();
+                    myGame.StartLevel(1);
                     this.Destroy();
                 }
 
@@ -54,7 +54,7 @@ public class MainMenu : GameObject
                 //clicked level 1:
                 if (Input.GetMouseButtonDown(0) && Input.mouseX >= 150 && Input.mouseX <= 490 && Input.mouseY >= 370 && Input.mouseY <= 620)
                 {
-                    myGame.StartLevel();
+                    myGame.StartLevel(1);
                     this.Destroy();
                 }
 

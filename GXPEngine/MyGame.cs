@@ -73,7 +73,9 @@ public class MyGame : Game {
 		backgroundLayer.LateAddChild(mainMenu);
 	}
 
-	public void StartLevel()
+    
+
+	public void StartLevel(int level)
 	{
         //delete background:
         List<GameObject> children = backgroundLayer.GetChildren();
@@ -84,6 +86,20 @@ public class MyGame : Game {
         Background background = new Background("background_lvl1.png");
         backgroundLayer.LateAddChild(background);
 
+        switch (level)
+        {
+            case (1):
+                Level loaded = new Level("level1.tmx");
+                break;
+            case (2):
+                Level loaded1 = new Level("level2.tmx");
+                break;
+            case (3):
+                Level loaded2 = new Level("level3.tmx");
+                break;
+        }
+        
+        /*
         // Add Pickups:
         BoostPickup boostPickup = new BoostPickup(600, 200);
         pickupLayer.LateAddChild(boostPickup);
@@ -132,6 +148,7 @@ public class MyGame : Game {
                 collisionStuff.LateAddChild(asteroid);
                 break;
         }
+        */
     }
 
 	static void Main()                          // Main() is the first method that's called when the program is run
