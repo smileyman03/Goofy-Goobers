@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading;
@@ -11,10 +12,10 @@ public class Asteroid : Sprite
     public Vector2 velocity = new Vector2(2, 0);
     public float mass = 1f;
     private float randomRotation;
-    public Asteroid(string image) : base(image)
+    public Asteroid(string image, float sX, float sY) : base(image)
     {
         SetOrigin(width / 2, height / 2);
-        SetXY(0, game.height/2);
+        SetXY(sX, sY);
         randomRotation = Utils.Random(-100, 100)/50;
     }
     void Update()
