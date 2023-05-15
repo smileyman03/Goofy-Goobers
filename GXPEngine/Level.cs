@@ -72,17 +72,17 @@ namespace GXPEngine
                                     myGame.collisionStuff.LateAddChild(planet2);
                                     break;
                                 case ("asteroid1"):
-                                    Asteroid asteroid = new Asteroid("asteroid1.png");
+                                    Asteroid asteroid = new Asteroid("asteroid1.png", sX, sY);
                                     myGame.collisionStuff.LateAddChild(asteroid);
                                     break;
 
                                 case ("asteroid2"):
-                                    Asteroid asteroid1 = new Asteroid("asteroid2.png");
+                                    Asteroid asteroid1 = new Asteroid("asteroid2.png", sX, sY);
                                     myGame.collisionStuff.LateAddChild(asteroid1);
                                     break;
 
                                 case ("asteroid3"):
-                                    Asteroid asteroid2 = new Asteroid("asteroid3.png");
+                                    Asteroid asteroid2 = new Asteroid("asteroid3.png", sX, sY);
                                     myGame.collisionStuff.LateAddChild(asteroid2);
                                     break;
 
