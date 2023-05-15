@@ -48,18 +48,82 @@ namespace GXPEngine
                         int tileNumber = tileNumbers[col, row];
                         if (tileNumber > 0)
                         {
-                            /*
-                            Tiles tile = new Tiles(Tileset, TilesetRows, TilesetCollumbs, leveldata.Layers[i].Name == "Background" ? false : true);
-                            tile.SetFrame(tileNumber - 1);
-                            tile.x = col * tile.width;
-                            tile.y = row * tile.height;
-
-                            if (dist(player1.x, player1.y, tile.x, tile.y) < 1500)
+                            
+                            //32 is the tile size in tiled
+                            int sX = col * 32;
+                            int sY = row * 32;
+                           
+                            MyGame myGame = (MyGame)game;
+                          
+                            string selectedObjected = leveldata.Layers[i].Name;
+                            switch (selectedObjected)
                             {
-                                AddChild(tile);
+                                case ("planetBig"):
+
+                                    Planet planet = new Planet("mars.png", 50, sX, sY, myGame.gravityLayer, 10);
+                                    myGame.collisionStuff.LateAddChild(planet);
+                                    break;
+                                case ("planetMedium"):
+                                    Planet planet1 = new Planet("spurral.png", 40, sX, sY, myGame.gravityLayer, 15);
+                                    myGame.collisionStuff.LateAddChild(planet1);
+                                    break;
+                                case ("planetSmall"):
+                                    Planet planet2 = new Planet("jupurter.png", 60, sX, sY, myGame.gravityLayer, 5);
+                                    myGame.collisionStuff.LateAddChild(planet2);
+                                    break;
+                                case ("astroid1"):
+                                    Asteroid asteroid = new Asteroid("asteroid1.png");
+                                    myGame.collisionStuff.LateAddChild(asteroid);
+                                    break;
+
+                                case ("astroid2"):
+                                    Asteroid asteroid1 = new Asteroid("asteroid2.png");
+                                    myGame.collisionStuff.LateAddChild(asteroid1);
+                                    break;
+
+                                case ("astroid3"):
+                                    Asteroid asteroid2 = new Asteroid("asteroid3.png");
+                                    myGame.collisionStuff.LateAddChild(asteroid2);
+                                    break;
+
+                                case ("repair"):
+                                    RepairPickup repair = new RepairPickup(sX, sY);
+                                    myGame.pickupLayer.LateAddChild(repair);
+                                    break;
+
+                                case ("shield"):
+                                    ShieldPickup shield = new ShieldPickup(sX, sY);
+                                    myGame.pickupLayer.LateAddChild(shield);
+                                    break;
+
+                                case ("boost"):
+                                    BoostPickup boost = new BoostPickup(sX, sY);
+                                    myGame.pickupLayer.LateAddChild(boost);
+                                    break;
+
+                                case ("fuel"):
+                                    FuelPickup fuel = new FuelPickup(sX, sY);
+                                    myGame.pickupLayer.LateAddChild(fuel);
+                                    break;
+
+                                case ("player"):
+                                    Player player = new Player();
+                                    Rope rope = new Rope(25, player);
+                                    Enemy enemy = new Enemy();
+                                    myGame.collisionStuff.LateAddChild(player);
+                                    myGame.ropeLayer.LateAddChild(rope);
+                                    myGame.collisionStuff.LateAddChild(enemy);
+                                    break;
+
+                            
                             }
 
-                            */
+
+
+
+
+
+
 
                         }
                     }

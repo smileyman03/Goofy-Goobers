@@ -43,6 +43,7 @@
     <Compile Include="Asteroid.cs" />
     <Compile Include="Background.cs" />
     <Compile Include="gravityPull.cs" />
+    <Compile Include="Level.cs" />
     <Compile Include="Planet.cs" />
     <Compile Include="BoostPickup.cs" />
     <Compile Include="Enemy.cs" />
