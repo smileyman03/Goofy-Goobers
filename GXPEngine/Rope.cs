@@ -128,7 +128,7 @@ public class Rope : GameObject
 
             Gizmos.SetColor(0.4f, 0, 1);
             Gizmos.DrawLine(oldVector.x, oldVector.y, newVector.x, newVector.y);
-            Console.WriteLine("rope old: " + oldVector.x + " " + oldVector.y + " rope new: " + newVector.x + " " + newVector.y);
+            //Console.WriteLine("rope old: " + oldVector.x + " " + oldVector.y + " rope new: " + newVector.x + " " + newVector.y);
         }
     }
 }
