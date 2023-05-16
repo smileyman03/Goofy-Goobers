@@ -50,8 +50,8 @@ public class MyGame : Game {
             if (child is Background)
             {
                 Background background = (Background)child;
-                background.x = posX;
-                background.y = posY;
+                background.x = -posX/20 + posX ;
+                background.y = -posY/20 + posY;
             }
         }
 
@@ -103,8 +103,8 @@ public class MyGame : Game {
 	public void MakeMenu(string menuScreen)
 	{
 		MainMenu mainMenu = new MainMenu(menuScreen);
-		backgroundLayer.LateAddChild(mainMenu);
-	}
+        backgroundLayer.LateAddChild(mainMenu);
+    }
 
     
 
@@ -112,7 +112,7 @@ public class MyGame : Game {
 	{
         switch (level)
         {
-            case (4):
+            case (1):
                 Level loaded = new Level("level1.tmx");
                 
                 break;
@@ -122,15 +122,19 @@ public class MyGame : Game {
             case (3):
                 Level loaded2 = new Level("level3.tmx");
                 break;
-            case (1):
+            case (4):
                 Player player = new Player(500, 500);
                 Rope rope = new Rope(25, player);
                 Enemy enemy = new Enemy(500, 500 + 30);
                 Asteroid textW = new Asteroid("PressWTut.png", width/2, height + 100, 0, -2);
                 Asteroid textAD = new Asteroid("PressAandDTut.png", width / 2 - 200, -500, 0.3f, 2);
-                Asteroid textHit = new Asteroid("ArrowTut.png", width + 450, -450, -0.8f, 0.8f);
+                Asteroid textHit = new Asteroid("ArrowTut.png", width + 300, -330, -0.8f, 0.8f);
                 Asteroid astroid = new Asteroid("Asteroid1.png", width + 500, -500, -0.8f, 0.8f);
-
+                Background background = new Background("background_lvl1.png",player);
+                background.SetOrigin(width / 2, height / 2);
+                background.SetScaleXY(1.1f);
+                background.SetXY(width / 2, height / 2);
+                backgroundLayer.AddChild(background);
                 collisionStuff.AddChild(textHit);
                 collisionStuff.AddChild(astroid);
                 collisionStuff.AddChild(textW);
@@ -152,10 +156,8 @@ public class MyGame : Game {
         hudLayer.AddChild(fuel);
 
         //Add Background:
-        Background background = new Background("background_lvl1.png");
-        background.SetOrigin(width / 2, height / 2);
-        background.SetXY(width / 2, height / 2);
-        backgroundLayer.AddChild(background);
+        
+        
 
         /*
         // Add Pickups:

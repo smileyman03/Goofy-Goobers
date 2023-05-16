@@ -109,13 +109,13 @@ public class Player : AnimationSprite
         {
             outofbounce.x += 1;
             
-        }else if(x > myGame.width){
+        }else if(x > 4800){
             outofbounce.x -= 1;
         }
         if(y < 0)
         {
             outofbounce.y += 1;
-        }else if(y > myGame.height)
+        }else if(y > 1080)
         {
             outofbounce.y -= 1;
         }
