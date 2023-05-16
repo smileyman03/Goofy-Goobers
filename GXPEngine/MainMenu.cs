@@ -135,7 +135,7 @@ public class MainMenu : GameObject
                     if (Input.GetMouseButtonDown(0))
                     {
                         myGame.DeleteLayers();
-                        myGame.StartLevel(1);
+                        myGame.StartLevel(4);
                         this.Destroy();
                     }
                 }
