@@ -131,8 +131,8 @@ public class Player : AnimationSprite
         y += fResult.y * Time.deltaTime / 16f;
 
         //Update rope position:
-        //ropeAttachPoint.x += fResult.x * Time.deltaTime / 16f;
-        //ropeAttachPoint.y += fResult.y * Time.deltaTime / 16f;
+        ropeAttachPoint.x += fResult.x * Time.deltaTime / 16f;
+        ropeAttachPoint.y += fResult.y * Time.deltaTime / 16f;
     }
     void OnCollision(GameObject other)
     {

@@ -120,6 +120,7 @@ public class Rope : GameObject
         //draws the line
         Vector2 oldVector;
         Vector2 newVector;
+        Game myGame = (MyGame)game;
         for (int i = 1; i < ropeLength; i++)
         {
             //Console.WriteLine(segmentList[0]);
@@ -127,7 +128,7 @@ public class Rope : GameObject
             newVector = segmentList[i];
 
             Gizmos.SetColor(0.4f, 0, 1);
-            Gizmos.DrawLine(oldVector.x, oldVector.y, newVector.x, newVector.y);
+            Gizmos.DrawLine(oldVector.x - player.x + myGame.width / 2, oldVector.y - player.y + myGame.height / 2, newVector.x - player.x + myGame.width / 2, newVector.y - player.y + myGame.height / 2);
             //Console.WriteLine("rope old: " + oldVector.x + " " + oldVector.y + " rope new: " + newVector.x + " " + newVector.y);
         }
     }
