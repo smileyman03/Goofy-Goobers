@@ -316,7 +316,7 @@ public class MainMenu : GameObject
                 break;
             case "LastWinScreen":
                 //menu screen
-                menu = new Sprite("GameOver.png");
+                menu = new Sprite("LastWinScreen.png");
                 myGame.backgroundLayer.LateAddChild(menu);
 
                 //menu button
