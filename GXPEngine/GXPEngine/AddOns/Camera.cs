@@ -13,7 +13,7 @@ namespace GXPEngine {
 			}
 		}
 		Window _renderTarget;
-
+		Player player;
 		/// <summary>
 		/// Creates a camera game object and a sub window to render to.
 		/// Add this camera as child to the object you want to follow, or 
@@ -24,11 +24,19 @@ namespace GXPEngine {
 		/// <param name="windowY">Top y coordinate of the render window.</param>
 		/// <param name="windowWidth">Width of the render window.</param>
 		/// <param name="windowHeight">Height of the render window.</param>
-		public Camera(int windowX, int windowY, int windowWidth, int windowHeight, bool clearBackground=true) {
+		public Camera(int windowX, int windowY, int windowWidth, int windowHeight, Player playerX, bool clearBackground=true) {
 			_renderTarget = new Window (windowX, windowY, windowWidth, windowHeight, this, clearBackground);
 			game.OnAfterRender += _renderTarget.RenderWindow;
+			SetScaleXY(4);
+			player = playerX;
+			SetXY(1920, 1080);
+
 		}
 
+		void Update()
+        {
+			rotation = -player.rotation;
+        }
 		/// <summary>
 		/// Returns whether a screen point (such as received from e.g. Input.mouseX/Y) is in the camera's window
 		/// </summary>

@@ -112,14 +112,17 @@ public class MyGame : Game {
                 Level loaded2 = new Level("level3.tmx");
                 break;
             case (1):
+
+
                 Player player = new Player(500, 500);
+                Camera cam = new Camera(1920, 1080, 1920, 1080, player);
                 Rope rope = new Rope(25, player);
                 Enemy enemy = new Enemy(500, 500 + 30);
                 Asteroid textW = new Asteroid("PressWTut.png", width/2, height + 100, 0, -2);
                 Asteroid textAD = new Asteroid("PressAandDTut.png", width / 2 - 200, -500, 0.3f, 2);
                 Asteroid textHit = new Asteroid("ArrowTut.png", width + 450, -450, -0.8f, 0.8f);
                 Asteroid astroid = new Asteroid("Asteroid1.png", width + 500, -500, -0.8f, 0.8f);
-
+                player.AddChild(cam);
                 collisionStuff.LateAddChild(textHit);
                 collisionStuff.LateAddChild(astroid);
                 collisionStuff.LateAddChild(textW);
