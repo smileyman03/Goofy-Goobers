@@ -414,12 +414,9 @@ public class Player : AnimationSprite
                     png = "wreck4.png";
                     myGame.pickupLayer.LateAddChild(new Wreck(png, x, y,false));
                     break;
-
             }
-            
-
         }
-        LateDestroy();
+        myGame.LevelOver("GameOver");
     }
 
     private void UpdateLayers()

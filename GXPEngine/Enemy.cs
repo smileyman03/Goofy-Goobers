@@ -318,7 +318,7 @@ public class Enemy : AnimationSprite
             }
             Destroy();
             
-            myGame.LevelOver("gamerover");
+            myGame.LevelOver("WinScreen");
         }
     }
 

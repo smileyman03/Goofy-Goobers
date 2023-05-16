@@ -16,6 +16,7 @@ public class MyGame : Game {
     public Pivot hudImageLayer = new Pivot();
 	SoundChannel backgroundSong;
     Sprite hud;
+    public int level;
 	public MyGame() : base(1920, 1080, false)     // Create a window that's 800x600 and NOT fullscreen
 	{
 		targetFps = 16;
@@ -43,7 +44,7 @@ public class MyGame : Game {
 
     public void UpdateLayers(float posX, float posY)
     {
-        //Update background:
+        //Update background position:
         List<GameObject> children = backgroundLayer.GetChildren();
         foreach (GameObject child in children)
         {
@@ -55,14 +56,18 @@ public class MyGame : Game {
             }
         }
 
-        //Update hud:
+        //Update hud position:
         hud.x = posX;
         hud.y = posY;
     }
 	public void LevelOver(string menuScreen)
 	{
 		DeleteLayers();
-		MakeMenu(menuScreen);
+        if (menuScreen == "WinScreen" && level == 3)
+        {
+            MakeMenu("LastWinScreen");
+        }
+        else MakeMenu(menuScreen);
     }
 
 	public void DeleteLayers()
@@ -106,21 +111,21 @@ public class MyGame : Game {
 		backgroundLayer.LateAddChild(mainMenu);
 	}
 
-    
-
 	public void StartLevel(int level)
 	{
         switch (level)
         {
             case (4):
                 Level loaded = new Level("level1.tmx");
-                
+                level = 1;
                 break;
             case (2):
                 Level loaded1 = new Level("level2.tmx");
+                level = 2;
                 break;
             case (3):
                 Level loaded2 = new Level("level3.tmx");
+                level = 3;
                 break;
             case (1):
                 Player player = new Player(500, 500);
@@ -208,7 +213,6 @@ public class MyGame : Game {
         }
         */
     }
-
 	static void Main()                          // Main() is the first method that's called when the program is run
 	{
 		new MyGame().Start();                   // Create a "MyGame" and start it
