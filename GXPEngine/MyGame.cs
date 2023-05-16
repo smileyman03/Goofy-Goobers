@@ -14,7 +14,6 @@ public class MyGame : Game {
 	public Pivot collisionStuff = new Pivot();
     public Pivot hudLayer = new Pivot();
     public Pivot hudImageLayer = new Pivot();
-    public Pivot cameraLayer = new Pivot();
 	SoundChannel backgroundSong;
     Sprite hud;
 	public MyGame() : base(1920, 1080, false)     // Create a window that's 800x600 and NOT fullscreen
@@ -107,8 +106,14 @@ public class MyGame : Game {
 		backgroundLayer.LateAddChild(mainMenu);
 	}
 
+    
+
 	public void StartLevel(int level)
 	{
+        //Add Background:
+        Background background = new Background("background_lvl1.png");
+        backgroundLayer.LateAddChild(background);
+
         switch (level)
         {
             case (4):
