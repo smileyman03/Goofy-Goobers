@@ -44,16 +44,7 @@ public class MyGame : Game {
     public void UpdateLayers(float posX, float posY)
     {
         //Update background:
-        List<GameObject> children = backgroundLayer.GetChildren();
-        foreach (GameObject child in children)
-        {
-            if (child is Background)
-            {
-                Background background = (Background)child;
-                background.x = -posX/30 + posX ;
-                background.y = -posY/30 + posY;
-            }
-        }
+        
 
         //Update hud:
         hud.x = posX;

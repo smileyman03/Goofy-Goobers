@@ -19,6 +19,8 @@ public class Background : AnimationSprite
 
     void Update()
     {
+        x = -player.x / 30 + player.x + 60;
+        y = -player.y / 30 + player.y;
         if (!doAnimation)
         {
             timer += Time.deltaTime;
@@ -40,8 +42,7 @@ public class Background : AnimationSprite
                 if (currentFrame == 6) doAnimation = false;
             }
         }
-        x = player.x / 2;
-        y = player.y / 2;
+       
         
     }
 }
