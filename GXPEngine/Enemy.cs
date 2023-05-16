@@ -20,6 +20,9 @@ public class Enemy : AnimationSprite
     private float mass = 1.95f;
     private float collisionTimer = 0;
     private float animationTimer = 0;
+    private float damageTimer = 0;
+    private bool damaged = false;
+    private float damageCooldown = 15;
     public Enemy(int sX, int sY) : base("enemy.png", 4, 1)
     {
         scale = 0.25f;
@@ -35,6 +38,7 @@ public class Enemy : AnimationSprite
         CollisionTimer();
         CheckHP();
         Animation();
+        damagedTimer();
     }
     void OnCollision(GameObject other)
     {
@@ -266,7 +270,12 @@ public class Enemy : AnimationSprite
     }
     void CalculateDamage(Vector2 CoM)
     {
-        health -= CoM.Length();
+        if (!damaged)
+        {
+            health -= CoM.Length();
+            damaged = true;
+            SetColor(0.9f, 0, 0);
+        }
     }
     void CollisionTimer()
     {
@@ -281,7 +290,36 @@ public class Enemy : AnimationSprite
             MyGame myGame = (MyGame)game;
             
             SoundChannel enemyDies = new Sound("Enemy_Explodes.wav").Play();
+            float random;
+            string png;
+            for (int i = 0; i < 10; i++)
+            {
+                random = Utils.Random(1, 4);
+                switch (random)
+                {
+                    case (1):
+                        png = "wreck1.png";
+                        myGame.pickupLayer.LateAddChild(new Wreck(png, x, y, true));
+                        break;
+                    case (2):
+                        png = "wreck2.png";
+                        myGame.pickupLayer.LateAddChild(new Wreck(png, x, y, true));
+                        break;
+                    case (3):
+                        png = "wreck3.png";
+                        myGame.pickupLayer.LateAddChild(new Wreck(png, x, y, true));
+                        break;
+                    case (4):
+                        png = "wreck4.png";
+                        myGame.pickupLayer.LateAddChild(new Wreck(png, x, y, true));
+                        break;
+                }
+
+
+            }
             Destroy();
+            
+            myGame.LevelOver("gamerover");
         }
     }
 
@@ -294,5 +332,19 @@ public class Enemy : AnimationSprite
             animationTimer = 0;
             NextFrame();
         }
+    }
+    void damagedTimer()
+    {
+        if (damaged)
+        {
+            damageTimer++;
+
+            if(damageTimer > damageCooldown)
+            {
+                damaged = false;
+                SetColor(1f, 1f, 1f);
+            }
+        }
+
     }
 }

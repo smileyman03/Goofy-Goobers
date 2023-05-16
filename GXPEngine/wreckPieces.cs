@@ -12,10 +12,14 @@ public class Wreck : Sprite
 {
     private float randomRotation;
     private Vector2 randomSpeed;
-    public Wreck(string sprite, float sX, float sY) : base(sprite)
+    public Wreck(string sprite, float sX, float sY, bool isEnemy) : base(sprite)
     {
         SetScaleXY(0.1f);
         SetXY(sX, sY);
+        if (isEnemy)
+        {
+            SetColor(0, 0.8f, 0);
+        }
         randomRotation = Utils.Random(-100, 100)/20;
         randomSpeed = Vector2.RandomUnitVector();
     }
