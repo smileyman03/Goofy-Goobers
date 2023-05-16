@@ -142,8 +142,8 @@ public class Player : AnimationSprite
                     //lose on 0 hp:
                     if (health <= 0)
                     {
-                        MyGame myGame = (MyGame)game;
-                        myGame.LevelOver("GameOver");
+                        death();
+                        
                     }
                 }
                 else
@@ -202,8 +202,7 @@ public class Player : AnimationSprite
                         //lose on 0 hp:
                         if (health <= 0)
                         {
-                            MyGame myGame = (MyGame)game;
-                            
+                            death();
                         }
                     }
                     else
@@ -365,6 +364,41 @@ public class Player : AnimationSprite
     {
         if ((Input.GetKey(Key.W) || Input.GetKey(Key.A) || Input.GetKey(Key.D)) && fuelCount > 0 && !lostControl && !spaceshipSound.IsPlaying) spaceshipSound = new Sound("spaceshipSounds.wav").Play();
     }
+
+    void death()
+    {
+        int random;
+        string png;
+        MyGame myGame = (MyGame)game;
+        for (int i = 0; i < 10; i++)
+        {
+            random = Utils.Random(1, 4);
+            switch (random)
+            {
+                case (1):
+                    png = "wreck1.png";
+                    myGame.pickupLayer.LateAddChild(new Wreck(png, x, y));
+                    break;
+                case (2):
+                    png = "wreck2.png";
+                    myGame.pickupLayer.LateAddChild(new Wreck(png, x, y));
+                    break;
+                case (3):
+                    png = "wreck3.png";
+                    myGame.pickupLayer.LateAddChild(new Wreck(png, x, y));
+                    break;
+                case (4):
+                    png = "wreck4.png";
+                    myGame.pickupLayer.LateAddChild(new Wreck(png, x, y));
+                    break;
+
+            }
+            
+
+        }
+        LateDestroy();
+    }
+}
 
     private void UpdateHUD()
     {

@@ -9,13 +9,15 @@ using GXPEngine;
 using GXPEngine.Core;
 public class Asteroid : Sprite
 {
-    public Vector2 velocity = new Vector2(2, 0);
+    public Vector2 velocity = new Vector2(0, 0);
     public float mass = 1f;
     private float randomRotation;
-    public Asteroid(string image, float sX, float sY) : base(image)
+    public Asteroid(string image, float sX, float sY, float vX, float vY) : base(image)
     {
         SetOrigin(width / 2, height / 2);
         SetXY(sX, sY);
+        velocity.x = vX;
+        velocity.y = vY;
         randomRotation = Utils.Random(-100, 100)/50;
     }
     void Update()

@@ -20,10 +20,12 @@ public class Enemy : AnimationSprite
     private float mass = 1.95f;
     private float collisionTimer = 0;
     private float animationTimer = 0;
-    public Enemy() : base("enemy.png", 4, 1)
+    public Enemy(int sX, int sY) : base("enemy.png", 4, 1)
     {
         scale = 0.25f;
         SetOrigin(width / 2, height / 2);
+
+        SetXY(sX, sY);
     }
     void Update()
     {
