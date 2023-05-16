@@ -10,13 +10,17 @@ public class Background : AnimationSprite
     private Boolean doAnimation = true;
     private float animationInterval;
     private float nextFrameTimer = 0;
-    public Background(String filename) : base(filename, 7, 1)
+    private Player player;
+    public Background(String filename, Player palyer) : base(filename, 7, 1)
     {
         animationInterval = Utils.Random(5, 20) * 1000;
+        player = palyer;
     }
 
     void Update()
     {
+        x = -player.x / 30 + player.x + 60;
+        y = -player.y / 30 + player.y;
         if (!doAnimation)
         {
             timer += Time.deltaTime;
@@ -38,5 +42,7 @@ public class Background : AnimationSprite
                 if (currentFrame == 6) doAnimation = false;
             }
         }
+       
+        
     }
 }
