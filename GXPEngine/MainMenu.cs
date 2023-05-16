@@ -24,7 +24,6 @@ public class MainMenu : GameObject
         currentMenu = menuScreen;
         CheckWhichScreen();
     }
-
     void Update()
     {
        // Console.WriteLine("X: " + Input.mouseX + " Y: " + Input.mouseY);

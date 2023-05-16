@@ -106,9 +106,9 @@ namespace GXPEngine
                                     Player player = new Player(sX, sY);
                                     Rope rope = new Rope(25, player);
                                     Enemy enemy = new Enemy(sX, sY + 30);
-                                    myGame.collisionStuff.LateAddChild(player);
-                                    myGame.ropeLayer.LateAddChild(rope);
-                                    myGame.collisionStuff.LateAddChild(enemy);
+                                    myGame.collisionStuff.AddChild(player);
+                                    myGame.ropeLayer.AddChild(rope);
+                                    myGame.collisionStuff.AddChild(enemy);
                                     break;
                             }
                         }

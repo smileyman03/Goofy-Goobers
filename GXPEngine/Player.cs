@@ -41,6 +41,10 @@ public class Player : AnimationSprite
         SetXY(sX, sY);
         // Rope attach point:
         ropeAttachPoint = new Vector2(x, y + (height / 2));
+
+        Camera camera = new Camera(0, 0, 1920, 1080);
+        camera.SetScaleXY(10, 10);
+        AddChild(camera);
     }
     public Vector2 AddForce(Vector2 vec)
     {
@@ -54,7 +58,7 @@ public class Player : AnimationSprite
         FuelConsumption();
         Timers();
         DoSounds();
-        UpdateHUD();
+        UpdateLayers();
 
         if (lostControl) LoseControl();
     }
@@ -98,7 +102,6 @@ public class Player : AnimationSprite
             }
         }
 
-
         //out of bounce fix
         Vector2 outofbounce = new Vector2(0, 0);
         MyGame myGame = (MyGame)game;
@@ -117,8 +120,6 @@ public class Player : AnimationSprite
             outofbounce.y -= 1;
         }
         fResult += outofbounce;
-
-
     }
     private void UpdatePosition()
     {
@@ -421,8 +422,10 @@ public class Player : AnimationSprite
         LateDestroy();
     }
 
-    private void UpdateHUD()
+    private void UpdateLayers()
     {
-        HUD.UpdateHUD(health, fuelCount);
+        MyGame myGame = (MyGame)game;
+        myGame.UpdateLayers(x, y);
+        HUD.UpdateHUD(health, fuelCount, x, y);
     }
 }

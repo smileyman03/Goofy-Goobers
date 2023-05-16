@@ -1,4 +1,7 @@
 using GXPEngine.Core; // For Vector2
+using System;
+using System.Collections.Generic;
+using System.Diagnostics.Contracts;
 
 namespace GXPEngine {
 	/// <summary>
@@ -13,6 +16,16 @@ namespace GXPEngine {
 			}
 		}
 		Window _renderTarget;
+
+		void Update()
+		{
+			MyGame myGame = (MyGame)game;
+			List<GameObject> gameObjects = myGame.collisionStuff.GetChildren();
+			foreach (GameObject obj in gameObjects)
+			{
+				if (obj is Player) rotation = obj.rotation - obj.rotation - obj.rotation;
+			}
+		}
 
 		/// <summary>
 		/// Creates a camera game object and a sub window to render to.

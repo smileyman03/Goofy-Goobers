@@ -2,6 +2,7 @@ using System;                                   // System contains a lot of defa
 using GXPEngine;                                // GXPEngine contains the engine
 using System.Drawing;                           // System.Drawing contains drawing tools such as Color definitions
 using System.Collections.Generic;
+using System.Drawing.Imaging;
 
 public class MyGame : Game {
 	public Pivot screen;
@@ -13,7 +14,9 @@ public class MyGame : Game {
 	public Pivot collisionStuff = new Pivot();
     public Pivot hudLayer = new Pivot();
     public Pivot hudImageLayer = new Pivot();
+    public Pivot cameraLayer = new Pivot();
 	SoundChannel backgroundSong;
+    Sprite hud;
 	public MyGame() : base(1920, 1080, false)     // Create a window that's 800x600 and NOT fullscreen
 	{
 		targetFps = 16;
@@ -22,7 +25,7 @@ public class MyGame : Game {
 		screen = new Pivot();
 		screen.x = 0;
 		AddChild(screen);
-		screen.AddChild(backgroundLayer);
+        screen.AddChild(backgroundLayer);
         screen.AddChild(buttonLayer);
 		screen.AddChild(pickupLayer);
 		screen.AddChild(ropeLayer);
@@ -32,18 +35,31 @@ public class MyGame : Game {
         screen.AddChild(hudImageLayer);
 
         // Add home screen:
-        MainMenu mainMenu = new MainMenu("GameOver");
+        MainMenu mainMenu = new MainMenu("HomeScreen");
         backgroundLayer.AddChild(mainMenu);
 
 		// Add song:
 		backgroundSong = new Sound("background_song.wav", true).Play();
 	}
 
-	// For every game object, Update is called every frame, by the engine:
-	void Update() {
-		// Empty
-	}
+    public void UpdateLayers(float posX, float posY)
+    {
+        //Update background:
+        List<GameObject> children = backgroundLayer.GetChildren();
+        foreach (GameObject child in children)
+        {
+            if (child is Background)
+            {
+                Background background = (Background)child;
+                background.x = posX;
+                background.y = posY;
+            }
+        }
 
+        //Update hud:
+        hud.x = posX;
+        hud.y = posY;
+    }
 	public void LevelOver(string menuScreen)
 	{
 		DeleteLayers();
@@ -91,14 +107,8 @@ public class MyGame : Game {
 		backgroundLayer.LateAddChild(mainMenu);
 	}
 
-    
-
 	public void StartLevel(int level)
 	{
-        //Add Background:
-        Background background = new Background("background_lvl1.png");
-        backgroundLayer.LateAddChild(background);
-
         switch (level)
         {
             case (4):
@@ -120,26 +130,32 @@ public class MyGame : Game {
                 Asteroid textHit = new Asteroid("ArrowTut.png", width + 450, -450, -0.8f, 0.8f);
                 Asteroid astroid = new Asteroid("Asteroid1.png", width + 500, -500, -0.8f, 0.8f);
 
-                collisionStuff.LateAddChild(textHit);
-                collisionStuff.LateAddChild(astroid);
-                collisionStuff.LateAddChild(textW);
-                collisionStuff.LateAddChild(textAD);
-                collisionStuff.LateAddChild(player);
-                ropeLayer.LateAddChild(rope);
-                collisionStuff.LateAddChild(enemy);
+                collisionStuff.AddChild(textHit);
+                collisionStuff.AddChild(astroid);
+                collisionStuff.AddChild(textW);
+                collisionStuff.AddChild(textAD);
+                collisionStuff.AddChild(player);
+                ropeLayer.AddChild(rope);
+                collisionStuff.AddChild(enemy);
 
                 break;
         }
 
         // ADD HUD:
-        Sprite hud = HUD.DrawHUD();
-        hudImageLayer.LateAddChild(hud);
+        hud = HUD.DrawHUD();
+        hud.SetOrigin(width / 2, height/2);
+        hudImageLayer.AddChild(hud);
         EasyDraw health = HUD.DrawHealth();
-        hudLayer.LateAddChild(health);
+        hudLayer.AddChild(health);
         EasyDraw fuel = HUD.DrawFuel();
-        hudLayer.LateAddChild(fuel);
-        HUD.UpdateHUD(100, 30000);
-        
+        hudLayer.AddChild(fuel);
+
+        //Add Background:
+        Background background = new Background("background_lvl1.png");
+        background.SetOrigin(width / 2, height / 2);
+        background.SetXY(width / 2, height / 2);
+        backgroundLayer.AddChild(background);
+
         /*
         // Add Pickups:
         BoostPickup boostPickup = new BoostPickup(600, 200);
