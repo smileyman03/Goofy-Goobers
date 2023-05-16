@@ -54,6 +54,7 @@ public class Player : AnimationSprite
         FuelConsumption();
         Timers();
         DoSounds();
+        UpdateHUD();
 
         if (lostControl) LoseControl();
     }
@@ -290,12 +291,12 @@ public class Player : AnimationSprite
             other.LateDestroy();
         }
     }
-    void LoseControl()
+    private void LoseControl()
     {
         timer += Time.deltaTime;
         if (timer >= 1000) lostControl = false;
     }
-    void FuelConsumption()
+    private void FuelConsumption()
     {
         if ((Input.GetKey(Key.W) || Input.GetKey(Key.A) || Input.GetKey(Key.D)) && fuelCount > 0 && !lostControl)
         {
@@ -310,7 +311,7 @@ public class Player : AnimationSprite
             myGame.LevelOver("GameOver");
         }
     }
-    void Timers()
+    private void Timers()
     {
         //Collision timer:
         if (collisionCooldownTimer != 0)
@@ -360,8 +361,13 @@ public class Player : AnimationSprite
         }
     }
 
-    void DoSounds()
+    private void DoSounds()
     {
         if ((Input.GetKey(Key.W) || Input.GetKey(Key.A) || Input.GetKey(Key.D)) && fuelCount > 0 && !lostControl && !spaceshipSound.IsPlaying) spaceshipSound = new Sound("spaceshipSounds.wav").Play();
+    }
+
+    private void UpdateHUD()
+    {
+        HUD.UpdateHUD(health, fuelCount);
     }
 }

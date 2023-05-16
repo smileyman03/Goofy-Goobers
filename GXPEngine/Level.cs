@@ -8,10 +8,6 @@ namespace GXPEngine
 {
     class Level : GameObject
     {
-
-
-
-
         private string Tileset = "mars.png"; // <---- Add your tileset image right here (there must be no dead space inbetween the tiles)
 
         private int TilesetCollumbs;

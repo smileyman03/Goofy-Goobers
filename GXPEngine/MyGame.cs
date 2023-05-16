@@ -10,6 +10,8 @@ public class MyGame : Game {
 	public Pivot ropeLayer = new Pivot();
 	public Pivot gravityLayer = new Pivot();
 	public Pivot collisionStuff = new Pivot();
+    public Pivot hudLayer = new Pivot();
+    public Pivot hudImageLayer = new Pivot();
 	SoundChannel backgroundSong;
 	public MyGame() : base(1920, 1080, false)     // Create a window that's 800x600 and NOT fullscreen
 	{
@@ -24,6 +26,8 @@ public class MyGame : Game {
 		screen.AddChild(ropeLayer);
 		screen.AddChild(collisionStuff);
 		screen.AddChild(gravityLayer);
+        screen.AddChild(hudLayer);
+        screen.AddChild(hudImageLayer);
 
         // Add home screen:
         MainMenu mainMenu = new MainMenu("HomeScreen");
@@ -65,6 +69,14 @@ public class MyGame : Game {
         //delete gravity layer:
         children = gravityLayer.GetChildren();
         for (int i = children.Count - 1; i >= 0; i--) children[i].LateDestroy();
+
+        //delete hud layer
+        children = hudLayer.GetChildren();
+        for (int i = children.Count - 1; i >= 0; i--) children[i].LateDestroy();
+
+        //delete hud image layer
+        children = hudImageLayer.GetChildren();
+        for (int i = children.Count - 1; i >= 0; i--) children[i].LateDestroy();
     }
 
 	public void MakeMenu(string menuScreen)
@@ -99,6 +111,15 @@ public class MyGame : Game {
                 Level loaded2 = new Level("level3.tmx");
                 break;
         }
+
+        // ADD HUD:
+        Sprite hud = HUD.DrawHUD();
+        hudImageLayer.LateAddChild(hud);
+        EasyDraw health = HUD.DrawHealth();
+        hudLayer.LateAddChild(health);
+        EasyDraw fuel = HUD.DrawFuel();
+        hudLayer.LateAddChild(fuel);
+        HUD.UpdateHUD(100, 30000);
         
         /*
         // Add Pickups:

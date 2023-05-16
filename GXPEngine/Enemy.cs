@@ -34,9 +34,6 @@ public class Enemy : AnimationSprite
         CheckHP();
         Animation();
     }
-
-
-
     void OnCollision(GameObject other)
     {
         if (other is Planet)
@@ -131,8 +128,6 @@ public class Enemy : AnimationSprite
 
                     }
                 }
-
-             
             }
         }
 
