@@ -18,7 +18,7 @@ public class Asteroid : Sprite
         SetXY(sX, sY);
         velocity.x = vX;
         velocity.y = vY;
-        randomRotation = Utils.Random(-100, 100)/50;
+        //randomRotation = Utils.Random(-100, 100)/50;
     }
     void Update()
     {

@@ -398,7 +398,6 @@ public class Player : AnimationSprite
         }
         LateDestroy();
     }
-}
 
     private void UpdateHUD()
     {
