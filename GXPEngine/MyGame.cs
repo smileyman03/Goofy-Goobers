@@ -100,7 +100,7 @@ public class MyGame : Game {
 
         switch (level)
         {
-            case (1):
+            case (4):
                 Level loaded = new Level("level1.tmx");
                 
                 break;
@@ -109,6 +109,24 @@ public class MyGame : Game {
                 break;
             case (3):
                 Level loaded2 = new Level("level3.tmx");
+                break;
+            case (1):
+                Player player = new Player(500, 500);
+                Rope rope = new Rope(25, player);
+                Enemy enemy = new Enemy(500, 500 + 30);
+                Asteroid textW = new Asteroid("PressWTut.png", width/2, height + 100, 0, -2);
+                Asteroid textAD = new Asteroid("PressAandDTut.png", width / 2 - 200, -500, 0.3f, 2);
+                Asteroid textHit = new Asteroid("ArrowTut.png", width + 450, -450, -0.8f, 0.8f);
+                Asteroid astroid = new Asteroid("Asteroid1.png", width + 500, -500, -0.8f, 0.8f);
+
+                collisionStuff.LateAddChild(textHit);
+                collisionStuff.LateAddChild(astroid);
+                collisionStuff.LateAddChild(textW);
+                collisionStuff.LateAddChild(textAD);
+                collisionStuff.LateAddChild(player);
+                ropeLayer.LateAddChild(rope);
+                collisionStuff.LateAddChild(enemy);
+
                 break;
         }
 
