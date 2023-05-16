@@ -47,6 +47,7 @@ public class Rope : GameObject
 
     void LinePhysics()
     {
+        //applies all forces to each segment of the rope
         additionalVelocity /= 1.04f;
         for (int i = 0; i < ropeLength; i++)
         {
@@ -70,10 +71,14 @@ public class Rope : GameObject
 
     void Constraining()
     {
+
         Vector2 firstSegment = segmentList[0];
         firstSegment.x = player.ropeAttachPoint.x;
         firstSegment.y = player.ropeAttachPoint.y;
         segmentList[0] = firstSegment;
+
+        //checks whether two segments of the rope is within a distance of one another plus corrects it
+
         for (int i = 0; i < ropeLength - 1; i++)
         {
             Vector2 firstSeg = segmentList[i];
@@ -108,6 +113,7 @@ public class Rope : GameObject
 
     public void DrawLine()
     {
+        //draws the line
         Vector2 oldVector;
         Vector2 newVector;
         for (int i = 1; i < ropeLength; i++)

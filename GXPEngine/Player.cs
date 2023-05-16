@@ -97,6 +97,28 @@ public class Player : AnimationSprite
                 fResult += velocity;
             }
         }
+
+
+        //out of bounce fix
+        Vector2 outofbounce = new Vector2(0, 0);
+        MyGame myGame = (MyGame)game;
+        if (x < 0)
+        {
+            outofbounce.x += 1;
+            
+        }else if(x > myGame.width){
+            outofbounce.x -= 1;
+        }
+        if(y < 0)
+        {
+            outofbounce.y += 1;
+        }else if(y > myGame.height)
+        {
+            outofbounce.y -= 1;
+        }
+        fResult += outofbounce;
+
+
     }
     private void UpdatePosition()
     {
@@ -377,19 +399,19 @@ public class Player : AnimationSprite
             {
                 case (1):
                     png = "wreck1.png";
-                    myGame.pickupLayer.LateAddChild(new Wreck(png, x, y));
+                    myGame.pickupLayer.LateAddChild(new Wreck(png, x, y, false));
                     break;
                 case (2):
                     png = "wreck2.png";
-                    myGame.pickupLayer.LateAddChild(new Wreck(png, x, y));
+                    myGame.pickupLayer.LateAddChild(new Wreck(png, x, y,false));
                     break;
                 case (3):
                     png = "wreck3.png";
-                    myGame.pickupLayer.LateAddChild(new Wreck(png, x, y));
+                    myGame.pickupLayer.LateAddChild(new Wreck(png, x, y, false));
                     break;
                 case (4):
                     png = "wreck4.png";
-                    myGame.pickupLayer.LateAddChild(new Wreck(png, x, y));
+                    myGame.pickupLayer.LateAddChild(new Wreck(png, x, y,false));
                     break;
 
             }
