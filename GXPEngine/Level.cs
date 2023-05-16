@@ -109,6 +109,11 @@ namespace GXPEngine
                                     myGame.collisionStuff.AddChild(player);
                                     myGame.ropeLayer.AddChild(rope);
                                     myGame.collisionStuff.AddChild(enemy);
+                                    Background background = new Background("background_lvl1.png", player);
+                                    background.SetOrigin(myGame.width / 2, myGame.height / 2);
+                                    background.SetScaleXY(1.1f);
+                                    background.SetXY(myGame.width / 2, myGame.height / 2);
+                                    myGame.backgroundLayer.AddChild(background);
                                     break;
                             }
                         }
