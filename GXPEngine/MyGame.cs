@@ -50,8 +50,8 @@ public class MyGame : Game {
             if (child is Background)
             {
                 Background background = (Background)child;
-                background.x = -posX/20 + posX ;
-                background.y = -posY/20 + posY;
+                background.x = -posX/30 + posX ;
+                background.y = -posY/30 + posY;
             }
         }
 

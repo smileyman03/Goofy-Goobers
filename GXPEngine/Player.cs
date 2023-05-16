@@ -115,7 +115,7 @@ public class Player : AnimationSprite
         if(y < 0)
         {
             outofbounce.y += 1;
-        }else if(y > 1080)
+        }else if(y > 1200)
         {
             outofbounce.y -= 1;
         }
