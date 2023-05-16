@@ -6,6 +6,7 @@ using System.Collections.Generic;
 public class MyGame : Game {
 	public Pivot screen;
 	public Pivot backgroundLayer = new Pivot();
+    public Pivot buttonLayer = new Pivot();
 	public Pivot pickupLayer = new Pivot();
 	public Pivot ropeLayer = new Pivot();
 	public Pivot gravityLayer = new Pivot();
@@ -22,6 +23,7 @@ public class MyGame : Game {
 		screen.x = 0;
 		AddChild(screen);
 		screen.AddChild(backgroundLayer);
+        screen.AddChild(buttonLayer);
 		screen.AddChild(pickupLayer);
 		screen.AddChild(ropeLayer);
 		screen.AddChild(collisionStuff);
@@ -30,7 +32,7 @@ public class MyGame : Game {
         screen.AddChild(hudImageLayer);
 
         // Add home screen:
-        MainMenu mainMenu = new MainMenu("HomeScreen");
+        MainMenu mainMenu = new MainMenu("GameOver");
         backgroundLayer.AddChild(mainMenu);
 
 		// Add song:
@@ -48,10 +50,14 @@ public class MyGame : Game {
 		MakeMenu(menuScreen);
     }
 
-	void DeleteLayers()
+	public void DeleteLayers()
 	{
         //delete background:
         List<GameObject> children = backgroundLayer.GetChildren();
+        for (int i = children.Count - 1; i >= 0; i--) children[i].LateDestroy();
+
+        //delete buttons:
+        children = buttonLayer.GetChildren();
         for (int i = children.Count - 1; i >= 0; i--) children[i].LateDestroy();
 
         //delete rope:
@@ -89,11 +95,6 @@ public class MyGame : Game {
 
 	public void StartLevel(int level)
 	{
-        //delete background:
-        List<GameObject> children = backgroundLayer.GetChildren();
-        for (int i = children.Count - 1; i >= 0; i--) children[i].LateDestroy();
-
-
         //Add Background:
         Background background = new Background("background_lvl1.png");
         backgroundLayer.LateAddChild(background);
