@@ -33,7 +33,7 @@ public class Rope : GameObject
         {
             segmentList.Add(startPos);
             oldsegmentList.Add(startPos);
-            startPos.y -= lineSegmentSize;
+            startPos.y += lineSegmentSize;
             //Console.WriteLine(startPos);
         }
     }
@@ -113,6 +113,10 @@ public class Rope : GameObject
 
     public void DrawLine()
     {
+        //removes old line:
+        List<GameObject> children = GetChildren();
+        for (int i = children.Count - 1; i >= 0; i--) children[i].Remove();
+
         //draws the line
         Vector2 oldVector;
         Vector2 newVector;
@@ -121,8 +125,10 @@ public class Rope : GameObject
             //Console.WriteLine(segmentList[0]);
             oldVector = segmentList[i - 1];
             newVector = segmentList[i];
+
             Gizmos.SetColor(0.4f, 0, 1);
             Gizmos.DrawLine(oldVector.x, oldVector.y, newVector.x, newVector.y);
+            Console.WriteLine("rope old: " + oldVector.x + " " + oldVector.y + " rope new: " + newVector.x + " " + newVector.y);
         }
     }
 }

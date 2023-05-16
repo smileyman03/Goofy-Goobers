@@ -110,10 +110,6 @@ public class MyGame : Game {
 
 	public void StartLevel(int level)
 	{
-        //Add Background:
-        Background background = new Background("background_lvl1.png");
-        backgroundLayer.LateAddChild(background);
-
         switch (level)
         {
             case (4):

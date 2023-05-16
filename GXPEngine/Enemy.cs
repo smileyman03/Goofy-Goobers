@@ -196,7 +196,7 @@ public class Enemy : AnimationSprite
             if (child is Rope)
             {
                 Rope rope = (Rope)child;
-                if (ropesClimbed > rope.segmentList.Count)
+                if (ropesClimbed == rope.segmentList.Count)
                 {
                     myGame.LevelOver("GameOver");
                 }
@@ -216,7 +216,6 @@ public class Enemy : AnimationSprite
                 // Set rope segment to which enemy needs to be attached:
                 Rope rope = (Rope)child;
                 attachedToRopeSegment = rope.segmentList.Count - 1 - ropesClimbed;
-
                 // Set XY to rope segment XY:
                 for (int i = rope.segmentList.Count - 1; i >= 0; i--)
                 {
@@ -227,7 +226,7 @@ public class Enemy : AnimationSprite
 
                         // Change position:
                         Vector2 position = rope.segmentList[i];
-                        if (rope.segmentList[i].y > rope.segmentList[i - 1].y) x = position.x - 50;
+                        if (i != 0 && rope.segmentList[i].y > rope.segmentList[i - 1].y) x = position.x - 50;
                         else x = position.x + 50;
                         y = position.y;
 
@@ -258,7 +257,7 @@ public class Enemy : AnimationSprite
                 // Set XY to rope segment XY:
                 for (int i = rope.segmentList.Count - 1; i >= 0; i--)
                 {
-                    if (i == attachedToRopeSegment)
+                    if (i != 0 && i == attachedToRopeSegment)
                     {
                         Vector2 vec = rope.segmentList[i] - rope.segmentList[i-1];
                         float angle = vec.GetAngleDegrees();

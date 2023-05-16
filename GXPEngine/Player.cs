@@ -40,7 +40,7 @@ public class Player : AnimationSprite
         y = game.height/2;
         SetXY(sX, sY);
         // Rope attach point:
-        ropeAttachPoint = new Vector2(x, y + (height / 2));
+        ropeAttachPoint = new Vector2(x + x - 40, y + 70);
 
         Camera camera = new Camera(0, 0, 1920, 1080);
         camera.SetScaleXY(10, 10);
@@ -71,7 +71,7 @@ public class Player : AnimationSprite
             {
                 angle -= 2.5f;
                 rotation -= turnSpeed;
-                ropeAttachPoint.RotateAroundDegrees(new Vector2(x, y), -2.5f);
+                ropeAttachPoint.RotateAroundDegrees(new Vector2(game.width / 2, game.height / 2), -2.5f);
             }
 
             //Rotate right if D is pressed
@@ -79,7 +79,7 @@ public class Player : AnimationSprite
             {
                 angle += 2.5f;
                 rotation += turnSpeed;
-                ropeAttachPoint.RotateAroundDegrees(new Vector2(x, y), 2.5f);
+                ropeAttachPoint.RotateAroundDegrees(new Vector2(game.width / 2, game.height / 2), 2.5f);
             }
         }
     }
@@ -130,9 +130,9 @@ public class Player : AnimationSprite
         x += fResult.x * Time.deltaTime / 16f;
         y += fResult.y * Time.deltaTime / 16f;
 
-        // Update rope position:
-        ropeAttachPoint.x += fResult.x * Time.deltaTime / 16f;
-        ropeAttachPoint.y += fResult.y * Time.deltaTime / 16f;
+        //Update rope position:
+        //ropeAttachPoint.x += fResult.x * Time.deltaTime / 16f;
+        //ropeAttachPoint.y += fResult.y * Time.deltaTime / 16f;
     }
     void OnCollision(GameObject other)
     {
