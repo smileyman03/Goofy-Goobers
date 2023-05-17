@@ -69,7 +69,7 @@ public class MainMenu : GameObject
                     if (Input.GetMouseButtonDown(0))
                     {
                         myGame.DeleteLayers();
-                        myGame.StartLevel(myGame.level);
+                        myGame.StartLevel(myGame.currentLevel);
                         this.Destroy();
                     }
                 }
@@ -129,7 +129,8 @@ public class MainMenu : GameObject
                 else level3Button.SetFrame(0);
 
                 //clicked tutorial:
-                if (Input.mouseX >= tutorialButton.x - tutorialButton.width / 2 && Input.mouseX <= tutorialButton.x + tutorialButton.width / 2 && Input.mouseY >= tutorialButton.y - tutorialButton.height / 2 && Input.mouseY <= tutorialButton.y + tutorialButton.height / 2)
+                if (Input.mouseX >= tutorialButton.x - tutorialButton.width / 2 && Input.mouseX <= tutorialButton.x + tutorialButton.width / 2 && Input.mouseY >= tutorialButton.y - tutorialButton.height / 2 && Input.mouseY
+                    <= tutorialButton.y + tutorialButton.height / 2)
                 {
                     tutorialButton.SetFrame(1);
                     if (Input.GetMouseButtonDown(0))
@@ -162,26 +163,26 @@ public class MainMenu : GameObject
                     if (Input.GetMouseButtonDown(0))
                     {
                         myGame.DeleteLayers();
-                        myGame.StartLevel(myGame.level);
+                        myGame.StartLevel(myGame.currentLevel);
                         this.Destroy();
                     }
                 }
                 else playAgainButton.SetFrame(0);
 
-                //Clicked options:
+                //Clicked proceed:
                 if (Input.mouseX >= proceedButton.x - proceedButton.width / 2 && Input.mouseX <= proceedButton.x + proceedButton.width / 2 && Input.mouseY >= proceedButton.y - proceedButton.height / 2 && Input.mouseY <= proceedButton.y + proceedButton.height / 2)
                 {
                     proceedButton.SetFrame(1);
                     if (Input.GetMouseButtonDown(0))
                     {
                         myGame.DeleteLayers();
-                        myGame.StartLevel(myGame.level + 1);
+                        myGame.StartLevel(myGame.currentLevel + 1);
                         this.Destroy();
                     }
                 }
                 else proceedButton.SetFrame(0);
 
-                //Clicked quit:
+                //Clicked menu:
                 if (Input.mouseX >= menuButton.x - menuButton.width / 2 && Input.mouseX <= menuButton.x + menuButton.width / 2 && Input.mouseY >= menuButton.y - menuButton.height / 2 && Input.mouseY <= menuButton.y + menuButton.height / 2)
                 {
                     menuButton.SetFrame(1);
@@ -202,7 +203,7 @@ public class MainMenu : GameObject
                     if (Input.GetMouseButtonDown(0))
                     {
                         myGame.DeleteLayers();
-                        myGame.StartLevel(myGame.level);
+                        myGame.StartLevel(myGame.currentLevel);
                         this.Destroy();
                     }
                 }

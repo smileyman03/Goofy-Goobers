@@ -16,7 +16,7 @@ public class MyGame : Game {
     public Pivot hudImageLayer = new Pivot();
 	SoundChannel backgroundSong;
     Sprite hud;
-    public int level;
+    public int currentLevel;
 	public MyGame() : base(1920, 1080, false)     // Create a window that's 800x600 and NOT fullscreen
 	{
 		targetFps = 16;
@@ -54,7 +54,7 @@ public class MyGame : Game {
 	public void LevelOver(string menuScreen)
 	{
 		DeleteLayers();
-        if (menuScreen == "WinScreen" && level == 3)
+        if (menuScreen == "WinScreen" && currentLevel == 3)
         {
             MakeMenu("LastWinScreen");
         }
@@ -108,15 +108,15 @@ public class MyGame : Game {
         {
             case (1):
                 Level loaded = new Level("level1.tmx");
-                level = 1;
+                currentLevel = 1;
                 break;
             case (2):
                 Level loaded1 = new Level("level2.tmx");
-                level = 2;
+                currentLevel = 2;
                 break;
             case (3):
                 Level loaded2 = new Level("level3.tmx");
-                level = 3;
+                currentLevel = 3;
                 break;
             case (4):
                 Player player = new Player(500, 500);
@@ -138,7 +138,7 @@ public class MyGame : Game {
                 collisionStuff.AddChild(player);
                 ropeLayer.AddChild(rope);
                 collisionStuff.AddChild(enemy);
-
+                level = 0;
                 break;
         }
 
