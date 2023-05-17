@@ -129,7 +129,7 @@ public class MainMenu : GameObject
                 else level3Button.SetFrame(0);
 
                 //clicked tutorial:
-                if (Input.mouseX >= tutorialButton.x - tutorialButton.width / 2 && Input.mouseX <= tutorialButton.x + tutorialButton.width / 2 && Input.mouseY >= tutorialButton.y - tutorialButton.height / 2 && Input.mouseX <= tutorialButton.x + tutorialButton.height / 2)
+                if (Input.mouseX >= tutorialButton.x - tutorialButton.width / 2 && Input.mouseX <= tutorialButton.x + tutorialButton.width / 2 && Input.mouseY >= tutorialButton.y - tutorialButton.height / 2 && Input.mouseY <= tutorialButton.y + tutorialButton.height / 2)
                 {
                     tutorialButton.SetFrame(1);
                     if (Input.GetMouseButtonDown(0))
